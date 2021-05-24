@@ -20,6 +20,9 @@
 #    include <stdio.h>
 
 #    include "process_auto_shift.h"
+#ifdef AUTO_SHIFT_SWEDISH
+#    include "keymap_swedish.h"
+#endif
 
 static uint16_t autoshift_time    = 0;
 static uint16_t autoshift_timeout = AUTO_SHIFT_TIMEOUT;
@@ -228,6 +231,11 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
         case KC_TAB:
         case KC_MINUS ... KC_SLASH:
         case KC_NONUS_BSLASH:
+#    endif
+#   ifdef AUTO_SHIFT_SWEDISH
+        case SE_ARNG:
+        case SE_ADIA:
+        case SE_ODIA:
 #    endif
             if (record->event.pressed) {
                 return autoshift_press(keycode, now, record);
