@@ -67,13 +67,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_HASH, SE_DOT,  TILD,    SE_COMM, xxxxxxx,
       xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     SE_AT,   SE_QUES, SE_LBRC, SE_RBRC, SE_AMPR, xxxxxxx,
       xxxxxxx, C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_EXLM, SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
-                                 _______, xxxxxxx, _______, CANCEL,  xxxxxxx, xxxxxxx, CANCEL,  RMOD,    xxxxxxx, _______
+                                 _______, xxxxxxx, _______, CANCEL,  xxxxxxx, xxxxxxx, CANCEL,  FUN,     xxxxxxx, _______
     ),
     [_RMOD] = LAYOUT(
       xxxxxxx, xxxxxxx, SE_LCBR, SE_RCBR, SE_PERC, xxxxxxx,                                     SE_DIAE, SE_GRV,  SE_CIRC, SE_ACUT, SE_TILD, xxxxxxx,
       xxxxxxx, SE_PIPE, SE_PLUS, SE_ASTR, SE_MINS, GRV,                                         xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
       xxxxxxx, SE_SLSH, SE_LABK, SE_RABK, SE_BSLS, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
-                                 _______, xxxxxxx, LMOD,    CANCEL,  xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
+                                 _______, xxxxxxx, FUN,     CANCEL,  xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
     ),
     [_WNAV] = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, SE_K,    xxxxxxx, SE_J,                                        xxxxxxx, SE_W,    SE_E,    SE_R,    xxxxxxx, xxxxxxx,
@@ -606,7 +606,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-
 #ifdef TAPPING_TERM_PER_KEY
 
 #define THUMB_TERM 20
@@ -618,42 +617,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MT_SPC:
-        case SE_E:
             return TAPPING_TERM + THUMB_TERM;
-        case MT_H:
-        case MT_N:
-        //case MT_P:
-        //case MT_L:
-        case MT_1:
-        case MT_3:
-        case MT_F1:
-        case MT_F3:
-        case MT_BTN1:
-            return TAPPING_TERM + INDEX_TERM;
-        case MT_T:
-        case MT_A:
-        case MT_0:
-        case MT_2:
-        case MT_F10:
-        case MT_F2:
-        case MT_CT:
+        case DN_CTRL:
             return TAPPING_TERM + MIDDLE_TERM;
-        case MT_S:
-        case MT_I:
-        case MT_4:
-        case MT_5:
-        case MT_F4:
-        case MT_F5:
-        case MT_CS:
-            return TAPPING_TERM + RING_TERM;
-        case MT_R:
-        case MT_O:
-        case MT_6:
-        case MT_7:
-        case MT_F6:
-        case MT_F7:
-        case MT_CR:
-            return TAPPING_TERM + PINKY_TERM;
         default:
             return TAPPING_TERM;
     }

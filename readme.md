@@ -5,6 +5,7 @@ My personal branch with weird things.
 Merged things:
 
 * The [early_combo](https://github.com/sevanteri/qmk_firmware/tree/early_combo) branch from Sevanteri. Pull Request [here](https://github.com/qmk/qmk_firmware/pull/8591).
+* `HOLD_ON_OTHER_KEY_PRESS`: [](https://github.com/qmk/qmk_firmware/pull/9404)
 
 # Quantum Mechanical Keyboard Firmware
 

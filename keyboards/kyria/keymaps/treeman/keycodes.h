@@ -99,6 +99,7 @@ enum custom_keycodes {
 #define G_WNAV LM(_WNAV, MOD_LGUI)
 #define TG_SWE TG(_SWE)
 #define OPT OSL(_OPT)
+#define FUN OSL(_FUN)
 
 #define GAME2 OSL(_GAME2)
 
