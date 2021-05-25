@@ -19,7 +19,6 @@ COMB(quot,              SE_QUOT,        SE_N, SE_I)
 COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I)
 // Mixed
 COMB(capsword,          CAPSWORD,       SE_T, SE_A)
-COMB(wnav,              TG_WNAV,        SE_H, SE_N)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
@@ -42,7 +41,6 @@ SUBS(gt_eq,             ">=",           SE_H, KC_D)
 
 // Thumbs
 COMB(num,               NUMWORD,        MT_SPC, SE_E)
-//COMB(sym,               SYM,            MOD, SE_E)
 
 // Thumb numbers
 COMB(e_0,               SE_0,           SE_E, SE_T)
