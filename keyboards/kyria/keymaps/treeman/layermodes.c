@@ -105,10 +105,10 @@ void process_num_word_activation(const keyrecord_t *record) {
         num_word_timer = timer_read();
     } else {
         if (timer_elapsed(num_word_timer) < TAPPING_TERM) {
-            // Tapping enables SYMWORD
+            // Tapping enables NUMWORD
             _num_word_enabled = true;
         } else {
-            // Holding turns off SYM when released
+            // Holding turns off NUM when released
             layer_off(_NUM);
         }
     }

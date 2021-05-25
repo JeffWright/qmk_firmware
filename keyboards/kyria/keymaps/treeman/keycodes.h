@@ -31,8 +31,6 @@ enum custom_keycodes {
     VIM_SP,
 
     // Custom keycodes for instant processing for NUMWORD
-    NUM_UP,
-    NUM_DN,
     NUM_G,
 
     // Instant oneshot mods
@@ -43,15 +41,14 @@ enum custom_keycodes {
 
     // Smart caps lock and layers that turn off on certain keys
     CAPSWORD,
-    SYM,
-    NUM,
-    XCASE,
+    NUMWORD,
 
     // Layer management
     CANCEL, // Cancel SYMWORD and NUMWORD
     CLEAR, // Clear all WORD, one-shots and reset to BASE
 
     TO_GAME,
+    TO_NUM,
 
     // Smileys
     // SHRUGIE,        // ┐(°‿°)┌ (nicer) or 乁(ツ)ㄏ (whatever)
@@ -94,9 +91,10 @@ enum custom_keycodes {
 
 #define LMOD OSL(_LMOD)
 #define RMOD OSL(_RMOD)
-#define NUM MO(_NUM)
-#define TG_NUM TG(_NUM)
-#define G_WNAV LM(_WNAV, MOD_LGUI)
+// #define NUM MO(_NUM)
+// #define TG_NUM TG(_NUM)
+// #define G_WNAV LM(_WNAV, MOD_LGUI)
+#define TG_WNAV TG(_WNAV)
 #define TG_SWE TG(_SWE)
 #define OPT OSL(_OPT)
 #define FUN OSL(_FUN)

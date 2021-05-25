@@ -19,7 +19,7 @@ COMB(quot,              SE_QUOT,        SE_N, SE_I)
 COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I)
 // Mixed
 COMB(capsword,          CAPSWORD,       SE_T, SE_A)
-COMB(xcase,             XCASE,          SE_H, SE_N)
+COMB(wnav,              TG_WNAV,        SE_H, SE_N)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
@@ -41,7 +41,7 @@ COMB(sp,                VIM_SP,         SE_S, SE_V)
 SUBS(gt_eq,             ">=",           SE_H, KC_D)
 
 // Thumbs
-COMB(num,               NUM,            MT_SPC, SE_E)
+COMB(num,               NUMWORD,        MT_SPC, SE_E)
 //COMB(sym,               SYM,            MOD, SE_E)
 
 // Thumb numbers
@@ -89,3 +89,8 @@ SUBS(https,             "https://",             MT_SPC, SE_SLSH)
 //SUBS(rust_debug,        "{:?}",                 MT_SPC, SE_LPRN)
 //SUBS(rust_vdebug,       "{:#?}",                MT_SPC, SE_RPRN)
 
+// J tests
+COMB(j1,                SE_J,           SE_X, SE_M)
+COMB(j2,                SE_J,           SE_M, SE_N)
+COMB(j3,                SE_J,           SE_W, SE_DOT)
+COMB(j4,                SE_J,           SE_G, SE_D)

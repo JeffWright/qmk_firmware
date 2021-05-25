@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, SE_Y,    SE_C,    SE_K,    SE_F,    SE_J,                                        SE_X,    SE_W,    SE_DOT,  SE_U,    SE_COMM, xxxxxxx,
+      xxxxxxx, SE_Y,    SE_C,    SE_K,    SE_F,    SE_MINS,                                     SE_X,    SE_W,    SE_DOT,  SE_U,    SE_COMM, xxxxxxx,
       xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_P,                                        SE_M,    SE_N,    SE_A,    SE_I,    SE_O,    xxxxxxx,
       xxxxxxx, SE_SLSH, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, KC_MUTE
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_NUM] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, SE_K,    SE_PERC, SE_J,                                        xxxxxxx, xxxxxxx, SE_DOT,  xxxxxxx, SE_COMM, xxxxxxx,
-      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    MY_000,                                      xxxxxxx, SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, SE_K,    SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, SE_DOT,  xxxxxxx, SE_COMM, xxxxxxx,
+      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    MY_000,                                      SE_J,  SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
       xxxxxxx, SE_SLSH, xxxxxxx, NUM_G,   SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_9,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
     ),
@@ -60,26 +60,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
       xxxxxxx, xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,                                      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx,
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, G_WNAV,  _______, xxxxxxx, _______
+                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
       xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_HASH, SE_DOT,  TILD,    SE_COMM, xxxxxxx,
       xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     SE_AT,   SE_QUES, SE_LBRC, SE_RBRC, SE_AMPR, xxxxxxx,
       xxxxxxx, C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_EXLM, SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
-                                 _______, xxxxxxx, _______, CANCEL,  xxxxxxx, xxxxxxx, CANCEL,  FUN,     xxxxxxx, _______
+                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CLEAR,   FUN,     xxxxxxx, _______
     ),
     [_RMOD] = LAYOUT(
       xxxxxxx, xxxxxxx, SE_LCBR, SE_RCBR, SE_PERC, xxxxxxx,                                     SE_DIAE, SE_GRV,  SE_CIRC, SE_ACUT, SE_TILD, xxxxxxx,
       xxxxxxx, SE_PIPE, SE_PLUS, SE_ASTR, SE_MINS, GRV,                                         xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
       xxxxxxx, SE_SLSH, SE_LABK, SE_RABK, SE_BSLS, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
-                                 _______, xxxxxxx, FUN,     CANCEL,  xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
+                                 _______, xxxxxxx, FUN,     _______, xxxxxxx, xxxxxxx, CLEAR,  _______, xxxxxxx, _______
     ),
     [_WNAV] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, SE_K,    xxxxxxx, SE_J,                                        xxxxxxx, SE_W,    SE_E,    SE_R,    xxxxxxx, xxxxxxx,
-      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    KC_ENT,                                      xxxxxxx, SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_9,    SE_H,    SE_L,    xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, _______, SPC_SFT, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
+      xxxxxxx, xxxxxxx, xxxxxxx, G(SE_K), xxxxxxx, G(SE_J),                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
+      xxxxxxx, G(SE_6), G(SE_4), G(SE_0), G(SE_2), G(KC_ENT),                                   xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7), xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx, xxxxxxx,
+                                 _______, xxxxxxx, _______, G(SPC_SFT),xxxxxxx,xxxxxxx,CLEAR,   _______, xxxxxxx, _______
     ),
     [_FUN] = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_OPT] = LAYOUT(
       xxxxxxx, _______, TG_CAPS, _______, _______, _______,                                     _______, TG_NIX,  _______, _______, _______, xxxxxxx,
-      xxxxxxx, _______, _______, KC_CAPS, _______, _______,                                     _______, TG_NUM,  _______, _______, _______, xxxxxxx,
+      xxxxxxx, _______, _______, KC_CAPS, _______, _______,                                     _______, TO_NUM,  _______, _______, _______, xxxxxxx,
       xxxxxxx, _______, _______, TO_GAME, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
@@ -275,10 +275,6 @@ void disable_gaming(void) {
     layer_off(_GAME2);
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LMOD, _RMOD, _FUN);
-}
-
 void tap_space_shift(uint16_t key, bool key_down) {
     if (key_down) {
         tap_code16(key);
@@ -393,28 +389,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 triple_tap(SE_0);
             }
             return false;
-        /* case SYM: */
-        /*     process_sym_word_activation(record); */
-        /*     return false; */
-        case TG_NUM:
-            // FIXME doesn't work
-            if (layer_state_is(_NUM)) {
-                disable_num_word();
-            } else {
-                layer_on(_NUM);
-            }
+        case TO_NUM:
+            layer_on(_NUM);
             return false;
-        case NUM:
+        case NUMWORD:
             process_num_word_activation(record);
             return false;
         case CAPSWORD:
             if (record->event.pressed) {
                 enable_caps_word();
-            }
-            return false;
-        case XCASE:
-            if (record->event.pressed) {
-                enable_xcase();
             }
             return false;
         case SAVE_VIM:
@@ -443,16 +426,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 tap_code16(C(SE_W));
                 tap_code(SE_V);
-            }
-            return false;
-        case NUM_UP:
-            if (record->event.pressed) {
-                tap_code(KC_UP);
-            }
-            return false;
-        case NUM_DN:
-            if (record->event.pressed) {
-                tap_code(KC_DOWN);
             }
             return false;
         case NUM_G:
