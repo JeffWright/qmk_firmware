@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, SE_Y,    SE_C,    SE_K,    SE_F,    SE_MINS,                                     SE_X,    SE_W,    SE_DOT,  SE_U,    SE_COMM, xxxxxxx,
+      xxxxxxx, SE_Y,    SE_C,    SE_K,    SE_F,    SE_J,                                        SE_X,    SE_W,    SE_DOT,  SE_U,    SE_COMM, xxxxxxx,
       xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_P,                                        SE_M,    SE_N,    SE_A,    SE_I,    SE_O,    xxxxxxx,
       xxxxxxx, SE_SLSH, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, KC_MUTE
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, SE_K,    SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, SE_DOT,  xxxxxxx, SE_COMM, xxxxxxx,
-      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    MY_000,                                      SE_J,  SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
+      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    MY_000,                                      SE_J,    SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
       xxxxxxx, SE_SLSH, xxxxxxx, NUM_G,   SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_9,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
     ),

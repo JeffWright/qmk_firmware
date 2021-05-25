@@ -88,9 +88,3 @@ SUBS(https,             "https://",             MT_SPC, SE_SLSH)
 //SUBS(turbofish,         "::<>"SS_TAP(X_LEFT),   MT_SPC, SE_COMM)
 //SUBS(rust_debug,        "{:?}",                 MT_SPC, SE_LPRN)
 //SUBS(rust_vdebug,       "{:#?}",                MT_SPC, SE_RPRN)
-
-// J tests
-COMB(j1,                SE_J,           SE_X, SE_M)
-COMB(j2,                SE_J,           SE_M, SE_N)
-COMB(j3,                SE_J,           SE_W, SE_DOT)
-COMB(j4,                SE_J,           SE_G, SE_D)
