@@ -50,6 +50,9 @@ void render_layers(void) {
         case _FUN:
             oled_write_P(PSTR("Fun\n"), false);
             break;
+        case _OPT:
+            oled_write_P(PSTR("Opts\n"), false);
+            break;
         default:
             oled_write_P(PSTR("???\n"), false);
     }

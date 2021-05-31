@@ -94,6 +94,7 @@ enum custom_keycodes {
 // #define NUM MO(_NUM)
 // #define TG_NUM TG(_NUM)
 // #define G_WNAV LM(_WNAV, MOD_LGUI)
+#define WNAV MO(_WNAV)
 #define TG_WNAV TG(_WNAV)
 #define TG_SWE TG(_SWE)
 #define OPT OSL(_OPT)
