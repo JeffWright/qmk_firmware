@@ -77,8 +77,6 @@ enum custom_keycodes {
 
 #define MT_BTN1 LGUI_T(KC_BTN1)
 #define MT_SPC LT(_NAV, KC_SPC)
-#define SPC_SFT LSFT_T(KC_SPC)
-
 #define SFT OSM(MOD_LSFT)
 #define ALT OSM(MOD_LALT)
 #define MY_RALT OSM(MOD_RALT)

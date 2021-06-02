@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, xxxxxxx, G(SE_C), G(SE_K), xxxxxxx, G(SE_J),                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
       xxxxxxx, G(SE_6), G(SE_4), G(SE_0), G(SE_2), xxxxxxx,                                     xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7), xxxxxxx,
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, _______, G(SPC_SFT),xxxxxxx,xxxxxxx,CLEAR,   _______, xxxxxxx, _______
+                                 _______, xxxxxxx, _______, G(KC_SPC),xxxxxxx,xxxxxxx, CLEAR,   _______, xxxxxxx, _______
     ),
     [_FUN] = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
@@ -464,6 +464,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     case _NUM:
                         tap_code(KC_PENT);
                         break;
+                    case _WNAV:
+                        tap_code16(G(KC_ENT));
+                        break;
                     default:
                         tap_code(KC_ENT);
                 }
@@ -489,6 +492,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SE_LPRN:
         case SE_LCBR:
         case SE_LBRC:
+        case SE_0:
+        case G(SE_0):
+        case G(SE_1):
+        case G(SE_2):
+        case G(SE_3):
+        case G(SE_4):
+        case G(SE_5):
+        case G(SE_6):
+        case G(SE_7):
+        case G(SE_8):
+        case G(SE_9):
+        case G(SE_K):
+        case G(SE_J):
+        case G(SE_W):
+        case G(SE_E):
+        case G(SE_R):
+        case G(SE_C):
             process_tap_hold(keycode, record);
             return false;
     }
@@ -514,6 +534,7 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SE_DQUO:
         case SE_DOT:
         case SE_EQL:
+        case SE_0:
             triple_tap(keycode);
             return;
         case SE_PERC:
@@ -532,6 +553,24 @@ void tap_hold_send_hold(uint16_t keycode) {
             return;
         case SE_LBRC:
             double_parens_left(keycode, SE_RBRC);
+            return;
+        case G(SE_0):
+        case G(SE_1):
+        case G(SE_2):
+        case G(SE_3):
+        case G(SE_4):
+        case G(SE_5):
+        case G(SE_6):
+        case G(SE_7):
+        case G(SE_8):
+        case G(SE_9):
+        case G(SE_K):
+        case G(SE_J):
+        case G(SE_W):
+        case G(SE_E):
+        case G(SE_R):
+        case G(SE_C):
+            tap_code16(S(keycode));
             return;
     }
 }
