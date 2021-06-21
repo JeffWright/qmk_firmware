@@ -11,14 +11,15 @@ bool process_tap_hold(uint16_t keycode, const keyrecord_t *record) {
 
     if (record->event.pressed) {
         if (in_progress) {
-            tap_hold_send_tap(keycode);
+            in_progress = false;
+            tap_hold_send_tap(lastkey);
         }
         in_progress = true;
         timer = timer_read();
         lastkey = keycode;
         hold_timeout = tap_hold_timeout(keycode);
     } else {
-        if (in_progress && timer_elapsed(timer) < hold_timeout) {
+        if (in_progress && keycode == lastkey && timer_elapsed(timer) < hold_timeout) {
             in_progress = false;
             tap_hold_send_tap(keycode);
         }
