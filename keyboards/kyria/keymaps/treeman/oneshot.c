@@ -1,6 +1,7 @@
 // From https://github.com/callum-oakley/qmk_firmware/tree/master/users/callum
 
 #include "oneshot.h"
+
 void update_oneshot_pre(
     oneshot_state *state,
     uint16_t mod,

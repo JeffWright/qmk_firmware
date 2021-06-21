@@ -25,7 +25,6 @@ enum custom_keycodes {
     GRV,
     CIRC,
 
-    MY_000,
     SAVE_VIM,
     CLOSE_VIM,
     VIM_VS,
@@ -50,6 +49,10 @@ enum custom_keycodes {
 
     TO_GAME,
     TO_NUM,
+
+    // Repeat keys
+    REPEAT,
+    REV_REP,
 
     // Smileys
     // SHRUGIE,        // ┐(°‿°)┌ (nicer) or 乁(ツ)ㄏ (whatever)

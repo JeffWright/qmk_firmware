@@ -21,6 +21,7 @@
 #include "casemodes.h"
 #include "layermodes.h"
 #include "tap_hold.h"
+#include "repeat.h"
 
 #include "keymap_swedish.h"
 #include "sendstring_swedish.h"
@@ -42,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, SE_Y,    SE_C,    SE_K,    SE_F,    SE_J,                                        SE_X,    SE_W,    SE_DOT,  SE_U,    SE_COMM, xxxxxxx,
       xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_P,                                        SE_M,    SE_N,    SE_A,    SE_I,    SE_O,    xxxxxxx,
       xxxxxxx, SE_DQUO, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
-                                 xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, KC_MUTE
+                                 xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, xxxxxxx
     ),
     [_SWE] = LAYOUT(
       xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
@@ -57,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
     ),
     [_NAV] = LAYOUT(
-      xxxxxxx, SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
+      xxxxxxx, SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REPEAT,  xxxxxxx,
       xxxxxxx, xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,                                      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, REV_REP, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, WNAV,    _______, xxxxxxx, _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
@@ -139,6 +140,11 @@ bool tap_undead_key(bool key_down, uint16_t code) {
         tap_code16(KC_SPACE);
     }
     return false;
+}
+
+void tap16_repeatable(uint16_t keycode) {
+    tap_code16(keycode);
+    register_key_to_repeat(keycode);
 }
 
 void swap_caps_esc(void) {
@@ -485,8 +491,7 @@ void tap_hold_send_hold(uint16_t keycode) {
             double_parens_left(keycode, SE_RBRC);
             return;
         default:
-            tap_code16(S(keycode));
-            return;
+            tap16_repeatable(S(keycode));
     }
 }
 void tap_hold_send_tap(uint16_t keycode) {
@@ -495,7 +500,7 @@ void tap_hold_send_tap(uint16_t keycode) {
             tap_undead_key(true, SE_GRV);
             return;
         default:
-            tap_code16(keycode);
+            tap16_repeatable(keycode);
     }
 }
 
@@ -577,11 +582,6 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 default:
                     return tap_undead_key(record->event.pressed, SE_CIRC);
             }
-        case MY_000:
-            if (record->event.pressed) {
-                triple_tap(SE_0);
-            }
-            return false;
         case TO_NUM:
             layer_on(_NUM);
             return false;
@@ -642,13 +642,13 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 switch (get_highest_layer(layer_state)) {
                     case _LMOD:
                     case _RMOD:
-                        tap_code16(C(S(KC_TAB)));
+                        tap16_repeatable(C(S(KC_TAB)));
                         break;
                     case _NAV:
-                        tap_code16(C(KC_TAB));
+                        tap16_repeatable(C(KC_TAB));
                         break;
                     default:
-                        tap_code16(KC_TAB);
+                        tap16_repeatable(KC_TAB);
                 }
             }
             return false;
@@ -656,15 +656,21 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 switch (get_highest_layer(layer_state)) {
                     case _NUM:
-                        tap_code(KC_PENT);
+                        tap16_repeatable(KC_PENT);
                         break;
                     case _WNAV:
-                        tap_code16(G(KC_ENT));
+                        tap16_repeatable(G(KC_ENT));
                         break;
                     default:
-                        tap_code(KC_ENT);
+                        tap16_repeatable(KC_ENT);
                 }
             }
+            return false;
+        case REPEAT:
+            update_repeat_key(record);
+            return false;
+        case REV_REP:
+            update_reverse_repeat_key(record);
             return false;
     }
 
@@ -675,6 +681,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_oneshot_pre(keycode, record);
 
     bool res = _process_record_user(keycode, record);
+
+    // If `false` was returned, then we did something special and should register that manually.
+    // Otherwise register it here by default.
+    // Skip Space to not interfere with NAV toggling.
+    if (res && record->event.pressed && keycode != MT_SPC) {
+        register_key_to_repeat(keycode);
+    }
 
     process_oneshot_post(keycode, record);
 

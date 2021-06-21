@@ -30,6 +30,7 @@ SRC += oneshot.c
 SRC += layermodes.c
 SRC += casemodes.c
 SRC += tap_hold.c
+SRC += repeat.c
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
 	SRC += encoder_utils.c
