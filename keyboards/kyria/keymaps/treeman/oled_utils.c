@@ -53,6 +53,9 @@ void render_layers(void) {
         case _OPT:
             oled_write_P(PSTR("Opts\n"), false);
             break;
+        case _SPEC:
+            oled_write_P(PSTR("Spec\n"), false);
+            break;
         default:
             oled_write_P(PSTR("???\n"), false);
     }

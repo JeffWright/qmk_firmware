@@ -16,8 +16,6 @@
 
 #pragma once
 
-// #define KEYMAP_VERSION "Kyria 0.1"
-
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif
@@ -49,13 +47,13 @@
 
 // Auto shift stuff
 //#define RETRO_SHIFT
-#define AUTO_SHIFT_NO_AUTO_REPEAT
-#define AUTO_SHIFT_TIMEOUT 135
-#define NO_AUTO_SHIFT_SPECIAL
-#define NO_AUTO_SHIFT_NUMERIC
-#undef AUTO_SHIFT_MODIFIERS
-#define AUTO_SHIFT_NO_SETUP
-#define AUTO_SHIFT_SWEDISH
+// #define AUTO_SHIFT_NO_AUTO_REPEAT
+// #define AUTO_SHIFT_TIMEOUT 135
+// #define NO_AUTO_SHIFT_SPECIAL
+// #define NO_AUTO_SHIFT_NUMERIC
+// #undef AUTO_SHIFT_MODIFIERS
+// #define AUTO_SHIFT_NO_SETUP
+// #define AUTO_SHIFT_SWEDISH
 
 // Combos
 #undef COMBO_TERM

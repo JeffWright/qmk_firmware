@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CLEAR,   FUN,     xxxxxxx, _______
     ),
     [_RMOD] = LAYOUT(
-      xxxxxxx, TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     SE_DIAE, SE_GRV,  SE_CIRC, SE_ACUT, SE_TILD, xxxxxxx,
+      xxxxxxx, TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,    xxxxxxx,
       xxxxxxx, SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,                                     xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
       xxxxxxx, SE_DQUO, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
                                  _______, xxxxxxx, FUN,     _______, xxxxxxx, xxxxxxx, CLEAR,  _______, xxxxxxx, _______
@@ -91,6 +91,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, _______, TG_CAPS, _______, _______, _______,                                     _______, TG_NIX,  _______, _______, _______, xxxxxxx,
       xxxxxxx, _______, _______, KC_CAPS, _______, _______,                                     _______, TO_NUM,  _______, _______, _______, xxxxxxx,
       xxxxxxx, _______, _______, TO_GAME, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
+                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
+    ),
+    [_SPEC] = LAYOUT(
+      xxxxxxx, SE_TILD, _______, _______, _______, _______,                                     _______, _______, SE_DIAE, _______, _______, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, SE_ACUT,                                     SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_GAME] = LAYOUT(
@@ -115,63 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-uint16_t get_combo_term(uint16_t index, combo_t *combo) {
-    switch (index) {
-        // Home-row and other tight combos
-        case tab:
-        case escape:
-        case scln:
-        case slsh:
-        case coln:
-        case enter:
-        case quot:
-        case circ:
-        case dlr:
-        case vsp:
-            return COMBO_TERM;
-        // Vertical combos, very relaxed
-        case small_left_arrow:
-        case lt_eq:
-        case large_right_arrow:
-        case small_right_arrow:
-        case pipe_to:
-        case sp:
-        case gt_eq:
-            return COMBO_TERM + 55;
-        // Regular combos, slightly relaxed
-        default:
-            return COMBO_TERM + 35;
-    }
-}
-
-bool get_combo_must_tap(uint16_t index, combo_t *combo) {
-    switch (index) {
-        case del:
-        case backsp:
-        case q_comb:
-        case z_comb:
-        case num:
-        case sp_ampr:
-        case sp_pipe:
-        case sp_plus:
-        case sp_astr:
-        case sp_mins:
-        case sp_unds:
-        case sp_perc:
-        case sp_grv:
-        case sp_labk:
-        case sp_rabk:
-        case sp_lbrc:
-        case sp_lprn:
-        case sp_lcbr:
-        case sp_bsls:
-        case sp_hash:
-        case slsh:
-            return false;
-        default:
-            return true;
-    }
-}
+// Keyboard utils
 
 static bool linux_mode = true;
 bool in_linux(void) {
@@ -233,6 +183,113 @@ void tap_escape(void) {
     tap_code(swap_caps_escape ? KC_CAPS : KC_ESC);
 }
 
+void enable_gaming(void) {
+    /* autoshift_disable(); */
+    layer_on(_GAME);
+}
+void disable_gaming(void) {
+    /* autoshift_enable(); */
+    layer_off(_GAME);
+    layer_off(_GAME2);
+}
+
+void tap_space_shift(uint16_t key, bool key_down) {
+    if (key_down) {
+        tap_code16(key);
+        tap_code(KC_SPC);
+        set_oneshot_mods(MOD_BIT(KC_LSFT));
+    }
+}
+
+void double_tap(uint16_t keycode) {
+    tap_code16(keycode);
+    tap_code16(keycode);
+}
+
+// Combos
+
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    switch (index) {
+        // Home-row and other tight combos
+        case tab:
+        case escape:
+        case scln:
+        case slsh:
+        case coln:
+        case enter:
+        case quot:
+        case circ:
+        case dlr:
+        case vsp:
+            return COMBO_TERM;
+        // Vertical combos, very relaxed
+        case small_left_arrow:
+        case lt_eq:
+        case large_right_arrow:
+        case small_right_arrow:
+        case pipe_to:
+        case sp:
+        case gt_eq:
+            return COMBO_TERM + 55;
+        // Regular combos, slightly relaxed
+        default:
+            return COMBO_TERM + 25;
+    }
+}
+
+bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+    switch (index) {
+        case del:
+        case backsp:
+        case q_comb:
+        case z_comb:
+        case num:
+        case sp_ampr:
+        case sp_pipe:
+        case sp_plus:
+        case sp_astr:
+        case sp_mins:
+        case sp_unds:
+        case sp_perc:
+        case sp_grv:
+        case sp_labk:
+        case sp_rabk:
+        case sp_lbrc:
+        case sp_lprn:
+        case sp_lcbr:
+        case sp_bsls:
+        case sp_hash:
+        case slsh:
+            return false;
+        default:
+            return true;
+    }
+}
+
+// Tapping terms
+
+#ifdef TAPPING_TERM_PER_KEY
+
+#define THUMB_TERM 20
+#define INDEX_TERM -20
+#define MIDDLE_TERM 0
+#define RING_TERM 80
+#define PINKY_TERM 180
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MT_SPC:
+            return TAPPING_TERM + THUMB_TERM;
+        case DN_CTRL:
+            return TAPPING_TERM + MIDDLE_TERM;
+        default:
+            return TAPPING_TERM;
+    }
+}
+#endif
+
+// Case modes
+
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     switch (keycode) {
         // Keycodes to ignore (don't disable caps word)
@@ -255,37 +312,6 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     return false;
 }
 
-bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
-    switch (keycode) {
-        case SE_A ... SE_Z:
-        case SE_1 ... SE_0:
-            return true;
-    }
-    return false;
-}
-
-void enable_gaming(void) {
-    autoshift_disable();
-    layer_on(_GAME);
-}
-void disable_gaming(void) {
-    autoshift_enable();
-    layer_off(_GAME);
-    layer_off(_GAME2);
-}
-
-void tap_space_shift(uint16_t key, bool key_down) {
-    if (key_down) {
-        tap_code16(key);
-        tap_code(KC_SPC);
-        set_oneshot_mods(MOD_BIT(KC_LSFT));
-    }
-}
-
-void double_tap(uint16_t keycode) {
-    tap_code16(keycode);
-    tap_code16(keycode);
-}
 void triple_tap(uint16_t keycode) {
     tap_code16(keycode);
     tap_code16(keycode);
@@ -297,6 +323,8 @@ void double_parens_left(uint16_t left, uint16_t right) {
     tap_code16(right);
     tap_code16(KC_LEFT);
 }
+
+// One-shot mods
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -329,33 +357,193 @@ oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_gui_state = os_up_unqueued;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_num_word(keycode, record)) {
-        return false;
-    }
-    /* if (!process_sym_word(keycode, record)) { */
-    /*     return false; */
-    /* } */
-    if (!process_case_modes(keycode, record)) {
-        return false;
-    }
-
-    update_oneshot(
+void process_oneshot_pre(uint16_t keycode, keyrecord_t *record) {
+    update_oneshot_pre(
         &os_shft_state, KC_LSFT, OS_SHFT,
         keycode, record
     );
-    update_oneshot(
+    update_oneshot_pre(
         &os_ctrl_state, KC_LCTL, OS_CTRL,
         keycode, record
     );
-    update_oneshot(
+    update_oneshot_pre(
         &os_alt_state, KC_LALT, OS_ALT,
         keycode, record
     );
-    update_oneshot(
+    update_oneshot_pre(
         &os_gui_state, KC_LGUI, OS_GUI,
         keycode, record
     );
+}
+
+void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
+    update_oneshot_post(
+        &os_shft_state, KC_LSFT, OS_SHFT,
+        keycode, record
+    );
+    update_oneshot_post(
+        &os_ctrl_state, KC_LCTL, OS_CTRL,
+        keycode, record
+    );
+    update_oneshot_post(
+        &os_alt_state, KC_LALT, OS_ALT,
+        keycode, record
+    );
+    update_oneshot_post(
+        &os_gui_state, KC_LGUI, OS_GUI,
+        keycode, record
+    );
+}
+
+// Tap hold
+
+bool tap_hold(uint16_t keycode) {
+    switch (keycode) {
+        case SE_DQUO:
+        case SE_AMPR:
+        case SE_PIPE:
+        case SE_PLUS:
+        case SE_ASTR:
+        case SE_MINS:
+        case SE_UNDS:
+        case SE_LABK:
+        case SE_RABK:
+        case SE_HASH:
+        case SE_BSLS:
+        case SE_SLSH:
+        case SE_DOT:
+        case SE_EQL:
+        case SE_EXLM:
+        case SE_PERC:
+        case GRV:
+        case SE_LPRN:
+        case SE_LCBR:
+        case SE_LBRC:
+        case SE_0:
+        case G(SE_0):
+        case G(SE_1):
+        case G(SE_2):
+        case G(SE_3):
+        case G(SE_4):
+        case G(SE_5):
+        case G(SE_6):
+        case G(SE_7):
+        case G(SE_8):
+        case G(SE_9):
+        case G(SE_K):
+        case G(SE_J):
+        case G(SE_W):
+        case G(SE_E):
+        case G(SE_R):
+        case G(SE_C):
+        case SE_A ... SE_Z:
+        case SE_ARNG:
+        case SE_ADIA:
+        case SE_ODIA:
+            return true;
+        default:
+            return false;
+    }
+}
+
+void tap_hold_send_hold(uint16_t keycode) {
+    switch (keycode) {
+        case SE_AMPR:
+        case SE_PIPE:
+        case SE_PLUS:
+        case SE_ASTR:
+        case SE_MINS:
+        case SE_UNDS:
+        case SE_LABK:
+        case SE_RABK:
+        case SE_HASH:
+        case SE_BSLS:
+        case SE_SLSH:
+            double_tap(keycode);
+            return;
+        case SE_DQUO:
+        case SE_DOT:
+        case SE_EQL:
+        case SE_0:
+            triple_tap(keycode);
+            return;
+        case SE_PERC:
+            send_string("%{}");
+            return;
+        case GRV:
+            tap_undead_key(true, SE_GRV);
+            tap_undead_key(true, SE_GRV);
+            tap_undead_key(true, SE_GRV);
+            return;
+        case SE_LPRN:
+            double_parens_left(keycode, SE_RPRN);
+            return;
+        case SE_LCBR:
+            double_parens_left(keycode, SE_RCBR);
+            return;
+        case SE_LBRC:
+            double_parens_left(keycode, SE_RBRC);
+            return;
+        default:
+            tap_code16(S(keycode));
+            return;
+    }
+}
+void tap_hold_send_tap(uint16_t keycode) {
+    switch (keycode) {
+        case GRV:
+            tap_undead_key(true, SE_GRV);
+            return;
+        default:
+            tap_code16(keycode);
+    }
+}
+
+uint16_t tap_hold_timeout(uint16_t keycode) {
+    switch (keycode) {
+        // Thumb
+        case SE_E:
+            return 120;
+        // Pinky
+        case SE_R:
+        case SE_DQUO:
+        case SE_O:
+        case SE_UNDS:
+            return 135;
+        // Ring
+        case SE_Y:
+        case SE_C:
+        case SE_S:
+        case SE_V:
+        case SE_COMM:
+        case SE_U:
+        case SE_I:
+        case SE_RPRN:
+            return 105;
+        // Middle
+        case SE_K:
+        case SE_T:
+        case SE_G:
+        case SE_DOT:
+        case SE_A:
+        case SE_LPRN:
+            return 100;
+        // Index
+        default:
+            return 100;
+    }
+}
+
+bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_num_word(keycode, record)) {
+        return false;
+    }
+    if (!process_case_modes(keycode, record)) {
+        return false;
+    }
+    if (!process_tap_hold(keycode, record)) {
+        return false;
+    }
 
     switch (keycode) {
         case KC_ESC:
@@ -382,7 +570,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TILD:
             return tap_undead_key(record->event.pressed, SE_TILD);
         case CIRC:
-            return tap_undead_key(record->event.pressed, SE_CIRC);
+            switch (get_highest_layer(layer_state)) {
+                case _SPEC:
+                    tap_code16(SE_CIRC);
+                    return false;
+                default:
+                    return tap_undead_key(record->event.pressed, SE_CIRC);
+            }
         case MY_000:
             if (record->event.pressed) {
                 triple_tap(SE_0);
@@ -472,116 +666,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case SE_AMPR:
-        case SE_PIPE:
-        case SE_PLUS:
-        case SE_ASTR:
-        case SE_MINS:
-        case SE_UNDS:
-        case SE_LABK:
-        case SE_RABK:
-        case SE_HASH:
-        case SE_BSLS:
-        case SE_SLSH:
-        case SE_DQUO:
-        case SE_DOT:
-        case SE_EQL:
-        case SE_EXLM:
-        case SE_PERC:
-        case GRV:
-        case SE_LPRN:
-        case SE_LCBR:
-        case SE_LBRC:
-        case SE_0:
-        case G(SE_0):
-        case G(SE_1):
-        case G(SE_2):
-        case G(SE_3):
-        case G(SE_4):
-        case G(SE_5):
-        case G(SE_6):
-        case G(SE_7):
-        case G(SE_8):
-        case G(SE_9):
-        case G(SE_K):
-        case G(SE_J):
-        case G(SE_W):
-        case G(SE_E):
-        case G(SE_R):
-        case G(SE_C):
-            process_tap_hold(keycode, record);
-            return false;
     }
 
     return true;
 }
 
-void tap_hold_send_hold(uint16_t keycode) {
-    switch (keycode) {
-        case SE_AMPR:
-        case SE_PIPE:
-        case SE_PLUS:
-        case SE_ASTR:
-        case SE_MINS:
-        case SE_UNDS:
-        case SE_LABK:
-        case SE_RABK:
-        case SE_HASH:
-        case SE_BSLS:
-        case SE_SLSH:
-            double_tap(keycode);
-            return;
-        case SE_DQUO:
-        case SE_DOT:
-        case SE_EQL:
-        case SE_0:
-            triple_tap(keycode);
-            return;
-        case SE_PERC:
-            send_string("%{}");
-            return;
-        case GRV:
-            tap_undead_key(true, SE_GRV);
-            tap_undead_key(true, SE_GRV);
-            tap_undead_key(true, SE_GRV);
-            return;
-        case SE_LPRN:
-            double_parens_left(keycode, SE_RPRN);
-            return;
-        case SE_LCBR:
-            double_parens_left(keycode, SE_RCBR);
-            return;
-        case SE_LBRC:
-            double_parens_left(keycode, SE_RBRC);
-            return;
-        case G(SE_0):
-        case G(SE_1):
-        case G(SE_2):
-        case G(SE_3):
-        case G(SE_4):
-        case G(SE_5):
-        case G(SE_6):
-        case G(SE_7):
-        case G(SE_8):
-        case G(SE_9):
-        case G(SE_K):
-        case G(SE_J):
-        case G(SE_W):
-        case G(SE_E):
-        case G(SE_R):
-        case G(SE_C):
-            tap_code16(S(keycode));
-            return;
-    }
-}
-void tap_hold_send_tap(uint16_t keycode) {
-    switch (keycode) {
-        case GRV:
-            tap_undead_key(true, SE_GRV);
-            return;
-        default:
-            tap_code16(keycode);
-    }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    process_oneshot_pre(keycode, record);
+
+    bool res = _process_record_user(keycode, record);
+
+    process_oneshot_post(keycode, record);
+
+    return res;
 }
 
 void matrix_scan_user(void) {
@@ -610,26 +707,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 #    ifdef OLED_DRIVER_ENABLE
         oled_on();
 #    endif
-    }
-}
-#endif
-
-#ifdef TAPPING_TERM_PER_KEY
-
-#define THUMB_TERM 20
-#define INDEX_TERM -20
-#define MIDDLE_TERM 0
-#define RING_TERM 80
-#define PINKY_TERM 180
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MT_SPC:
-            return TAPPING_TERM + THUMB_TERM;
-        case DN_CTRL:
-            return TAPPING_TERM + MIDDLE_TERM;
-        default:
-            return TAPPING_TERM;
     }
 }
 #endif

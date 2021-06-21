@@ -1,6 +1,6 @@
 OLED_DRIVER_ENABLE = yes    # OLED displays
 ENCODER_ENABLE = yes        # One or more encoders
-AUTO_SHIFT_ENABLE = yes
+AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = yes
 
 # Easy definition of combos

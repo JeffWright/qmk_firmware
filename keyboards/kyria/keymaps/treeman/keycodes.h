@@ -15,7 +15,8 @@ enum layers {
     _LMOD,
     _RMOD,
     _FUN,
-    _OPT
+    _OPT,
+    _SPEC
 };
 
 enum custom_keycodes {
@@ -96,7 +97,16 @@ enum custom_keycodes {
 #define TG_WNAV TG(_WNAV)
 #define TG_SWE TG(_SWE)
 #define OPT OSL(_OPT)
+#define SPEC OSL(_SPEC)
 #define FUN OSL(_FUN)
 
 #define GAME2 OSL(_GAME2)
 
+#define SYM_LFT ALGR(SE_Y) // ← y
+#define SYM_DWN ALGR(SE_U) // ↓ u
+#define SYM_RHT ALGR(SE_I) // → i
+#define SYM_UP ALGR(S(SE_U)) // ↑ U
+#define SYM_LDQ ALGR(S(SE_V)) // “ v
+#define SYM_RDQ ALGR(S(SE_B)) // ” b
+#define SYM_LQO ALGR(S(SE_V)) // ‘ V
+#define SYM_RQO ALGR(S(SE_B)) // ’ B
