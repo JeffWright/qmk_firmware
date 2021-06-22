@@ -1,5 +1,7 @@
 #pragma once
 
+#include QMK_KEYBOARD_H
+
 #include "keymap_swedish.h"
 #include "quantum.h"
 #include "oneshot.h"
@@ -32,6 +34,12 @@ enum custom_keycodes {
 
     // Custom keycodes for instant processing for NUMWORD
     NUM_G,
+
+    // ÅÄÖ or ()_ combos
+    LPRN_ARNG,
+    RPRN_ADIA,
+    UNDS_ODIA,
+
 
     // Instant oneshot mods
     OS_SHFT,

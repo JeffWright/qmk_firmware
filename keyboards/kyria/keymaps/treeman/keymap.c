@@ -40,9 +40,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, SE_Y,    SE_C,    SE_K,    SE_F,    SE_J,                                        SE_X,    SE_W,    SE_DOT,  SE_U,    SE_COMM, xxxxxxx,
-      xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_P,                                        SE_M,    SE_N,    SE_A,    SE_I,    SE_O,    xxxxxxx,
-      xxxxxxx, SE_DQUO, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
+      xxxxxxx, SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,                                        SE_X,    SE_W,    REPEAT,  SE_U,    SE_DOT,  xxxxxxx,
+      xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_K,                                        SE_M,    SE_N,    SE_A,    SE_I,    SE_O,    xxxxxxx,
+      xxxxxxx, SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, xxxxxxx
     ),
     [_SWE] = LAYOUT(
@@ -52,28 +52,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_NUM] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, SE_K,    SE_PERC, SE_J,                                        xxxxxxx, xxxxxxx, SE_DOT,  xxxxxxx, SE_COMM, xxxxxxx,
-      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    xxxxxxx,                                     SE_J,    SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
-      xxxxxxx, SE_DQUO, xxxxxxx, NUM_G,   SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_9,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
+      xxxxxxx, SE_J,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, REPEAT,  xxxxxxx, SE_DOT,  xxxxxxx,
+      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    SE_K,                                        xxxxxxx, SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
+      xxxxxxx, SE_COMM, xxxxxxx, NUM_G,   SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
     ),
     [_NAV] = LAYOUT(
-      xxxxxxx, SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REPEAT,  xxxxxxx,
+      xxxxxxx, SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
       xxxxxxx, xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,                                      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, REV_REP, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, WNAV,    _______, xxxxxxx, _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
-      xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_HASH, SE_DOT,  SE_AT,   SE_COMM, xxxxxxx,
+      xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_PIPE, REPEAT,  SE_AMPR, SE_DOT,  xxxxxxx,
       xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     GRV,     SE_QUES, SE_LBRC, SE_RBRC, xxxxxxx, xxxxxxx,
-      xxxxxxx, C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_EQL,  SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
+      xxxxxxx, C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_HASH, SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CLEAR,   FUN,     xxxxxxx, _______
     ),
     [_RMOD] = LAYOUT(
       xxxxxxx, TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,    xxxxxxx,
-      xxxxxxx, SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,                                     xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
-      xxxxxxx, SE_DQUO, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
+      xxxxxxx, SE_AT,   SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,                                     xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
+      xxxxxxx, SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
                                  _______, xxxxxxx, FUN,     _______, xxxxxxx, xxxxxxx, CLEAR,  _______, xxxxxxx, _______
     ),
     [_WNAV] = LAYOUT(
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_SPEC] = LAYOUT(
-      xxxxxxx, SE_TILD, _______, _______, _______, _______,                                     _______, _______, SE_DIAE, _______, _______, xxxxxxx,
+      xxxxxxx, SE_TILD, _______, _______, _______, _______,                                     _______, _______, _______, _______, SE_DIAE, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, SE_ACUT,                                     SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
@@ -220,7 +220,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         case tab:
         case escape:
         case scln:
-        case slsh:
+        case dquo:
         case coln:
         case enter:
         case quot:
@@ -255,17 +255,18 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case sp_plus:
         case sp_astr:
         case sp_mins:
-        case sp_unds:
         case sp_perc:
         case sp_grv:
         case sp_labk:
         case sp_rabk:
-        case sp_lbrc:
-        case sp_lprn:
         case sp_lcbr:
         case sp_bsls:
         case sp_hash:
-        case slsh:
+        case rev_rep:
+        case lprn_arng:
+        case rprn_adia:
+        case unds_odia:
+        case eql:
             return false;
         default:
             return true;
@@ -446,6 +447,11 @@ bool tap_hold(uint16_t keycode) {
         case SE_ARNG:
         case SE_ADIA:
         case SE_ODIA:
+        case LPRN_ARNG:
+        case RPRN_ADIA:
+        case UNDS_ODIA:
+            // Preregister so we can roll with the repeat key
+            register_key_to_repeat(keycode);
             return true;
         default:
             return false;
@@ -465,11 +471,11 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SE_HASH:
         case SE_BSLS:
         case SE_SLSH:
+        case SE_EQL:
             double_tap(keycode);
             return;
         case SE_DQUO:
         case SE_DOT:
-        case SE_EQL:
         case SE_0:
             triple_tap(keycode);
             return;
@@ -490,6 +496,27 @@ void tap_hold_send_hold(uint16_t keycode) {
         case SE_LBRC:
             double_parens_left(keycode, SE_RBRC);
             return;
+        case LPRN_ARNG:
+            if (IS_LAYER_ON(_SWE)) {
+                tap16_repeatable(SE_LPRN);
+            } else {
+                tap16_repeatable(S(SE_ARNG));
+            }
+            return;
+        case RPRN_ADIA:
+            if (IS_LAYER_ON(_SWE)) {
+                tap16_repeatable(SE_RPRN);
+            } else {
+                tap16_repeatable(S(SE_ADIA));
+            }
+            return;
+        case UNDS_ODIA:
+            if (IS_LAYER_ON(_SWE)) {
+                tap16_repeatable(SE_UNDS);
+            } else {
+                tap16_repeatable(S(SE_ODIA));
+            }
+            return;
         default:
             tap16_repeatable(S(keycode));
     }
@@ -497,7 +524,29 @@ void tap_hold_send_hold(uint16_t keycode) {
 void tap_hold_send_tap(uint16_t keycode) {
     switch (keycode) {
         case GRV:
+            register_key_to_repeat(keycode);
             tap_undead_key(true, SE_GRV);
+            return;
+        case LPRN_ARNG:
+            if (IS_LAYER_ON(_SWE)) {
+                tap16_repeatable(SE_LPRN);
+            } else {
+                tap16_repeatable(SE_ARNG);
+            }
+            return;
+        case RPRN_ADIA:
+            if (IS_LAYER_ON(_SWE)) {
+                tap16_repeatable(SE_RPRN);
+            } else {
+                tap16_repeatable(SE_ADIA);
+            }
+            return;
+        case UNDS_ODIA:
+            if (IS_LAYER_ON(_SWE)) {
+                tap16_repeatable(SE_UNDS);
+            } else {
+                tap16_repeatable(SE_ODIA);
+            }
             return;
         default:
             tap16_repeatable(keycode);
@@ -511,27 +560,29 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
             return 120;
         // Pinky
         case SE_R:
-        case SE_DQUO:
+        case SE_COMM:
         case SE_O:
         case SE_UNDS:
+        case UNDS_ODIA:
             return 135;
         // Ring
-        case SE_Y:
+        case SE_J:
         case SE_C:
         case SE_S:
         case SE_V:
-        case SE_COMM:
+        case SE_DOT:
         case SE_U:
         case SE_I:
         case SE_RPRN:
+        case RPRN_ADIA:
             return 105;
         // Middle
-        case SE_K:
+        case SE_Y:
         case SE_T:
         case SE_G:
-        case SE_DOT:
         case SE_A:
         case SE_LPRN:
+        case LPRN_ARNG:
             return 100;
         // Index
         default:
@@ -573,6 +624,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_move(_BASE);
             return false;
         case TILD:
+            register_key_to_repeat(TILD);
             return tap_undead_key(record->event.pressed, SE_TILD);
         case CIRC:
             switch (get_highest_layer(layer_state)) {
@@ -580,6 +632,7 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(SE_CIRC);
                     return false;
                 default:
+                    register_key_to_repeat(CIRC);
                     return tap_undead_key(record->event.pressed, SE_CIRC);
             }
         case TO_NUM:

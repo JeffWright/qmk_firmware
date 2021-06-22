@@ -1,6 +1,10 @@
 #include "repeat.h"
+#include "keymap_swedish.h"
+#include "keycodes.h"
 
 uint16_t last_keycode = KC_NO;
+
+bool tap_undead_key(bool key_down, uint16_t code);
 
 void register_key_to_repeat(uint16_t keycode) {
     // Get the base keycode of a mod or layer tap key
@@ -32,10 +36,25 @@ void update_key(uint16_t keycode, keyrecord_t *record) {
 }
 
 void update_repeat_key(keyrecord_t *record) {
-    update_key(last_keycode, record);
+    switch (last_keycode) {
+        case GRV:
+            tap_undead_key(record->event.pressed, SE_GRV);
+            break;
+        case TILD:
+            tap_undead_key(record->event.pressed, SE_TILD);
+            break;
+        case CIRC:
+            tap_undead_key(record->event.pressed, SE_CIRC);
+            break;
+        default:
+            update_key(last_keycode, record);
+    }
 }
 
 void update_reverse_repeat_key(keyrecord_t *record) {
+    // C-g, C-S-g mover forward and backward in browser search
+    // PgUp/PgDn
+    //
     // Do the "reverse" of the last pressed key, that we use to repeat
     switch (last_keycode) {
         case C(KC_TAB):
