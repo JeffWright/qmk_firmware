@@ -51,47 +51,26 @@ void update_repeat_key(keyrecord_t *record) {
     }
 }
 
-void update_reverse_repeat_key(keyrecord_t *record) {
-    // C-g, C-S-g mover forward and backward in browser search
-    // PgUp/PgDn
-    //
-    // Do the "reverse" of the last pressed key, that we use to repeat
-    switch (last_keycode) {
-        case C(KC_TAB):
-            update_key(C(S(KC_TAB)), record);
-            break;
-        case C(S(KC_TAB)):
-            update_key(S(KC_TAB), record);
-            break;
-        case C(KC_N):
-            update_key(C(KC_P), record);
-            break;
-        case C(KC_P):
-            update_key(C(KC_N), record);
-            break;
-        case C(KC_F):
-            update_key(C(KC_B), record);
-            break;
-        case C(KC_B):
-            update_key(C(KC_F), record);
-            break;
-        case C(KC_U):
-            update_key(C(KC_D), record);
-            break;
-        case C(KC_D):
-            update_key(C(KC_U), record);
-            break;
-        case S(KC_W):
-            update_key(S(KC_B), record);
-            break;
-        case S(KC_B):
-            update_key(S(KC_W), record);
-            break;
-        default:
-            // Might make more sense to not do anything here
-            // instead of doing something random.
-            /* update_key(last_keycode, record); */
-            break;
+void update_reverse_key_pairs(uint16_t a, uint16_t b, keyrecord_t *record) {
+    if (last_keycode == a) {
+        update_key(b, record);
+    } else if (last_keycode == b) {
+        update_key(a, record);
     }
+}
+
+void update_reverse_repeat_key(keyrecord_t *record) {
+    // Do the "reverse" of the last pressed key, that we use to repeat
+    update_reverse_key_pairs(C(KC_TAB), C(S(KC_TAB)), record);
+    update_reverse_key_pairs(C(KC_N), C(KC_P), record);
+    update_reverse_key_pairs(C(KC_F), C(KC_B), record);
+    update_reverse_key_pairs(C(KC_U), C(KC_D), record);
+    update_reverse_key_pairs(S(KC_W), S(KC_B), record);
+    update_reverse_key_pairs(C(SE_G), C(S(SE_G)), record);
+    update_reverse_key_pairs(KC_PGUP, KC_PGDN, record);
+    update_reverse_key_pairs(SE_ASTR, SE_HASH, record);
+    update_reverse_key_pairs(SE_U, C(SE_R), record);
+    update_reverse_key_pairs(SE_LCBR, SE_RCBR, record);
+    update_reverse_key_pairs(G(SE_K), G(SE_J), record);
 }
 

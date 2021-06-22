@@ -450,8 +450,6 @@ bool tap_hold(uint16_t keycode) {
         case LPRN_ARNG:
         case RPRN_ADIA:
         case UNDS_ODIA:
-            // Preregister so we can roll with the repeat key
-            register_key_to_repeat(keycode);
             return true;
         default:
             return false;
