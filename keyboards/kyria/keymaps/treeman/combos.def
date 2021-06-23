@@ -4,10 +4,10 @@ COMB(z_comb,            SE_Z,           SE_Y, SE_F)
 COMB(del,               KC_DEL,         SE_C, SE_Y, SE_F)
 // Right top row
 SUBS(el_str_int,        "#{}"SS_TAP(X_LEFT),  SE_X, SE_W)
-COMB(eql,               SE_EQL,         SE_W, SE_DOT)
-COMB(backsp,            KC_BSPC,        SE_DOT, SE_U)
-COMB(wbacksp,           C(SE_W),        SE_W, SE_DOT, SE_U)
-COMB(rev_rep,           REV_REP,        SE_U, REPEAT)
+COMB(eql,               SE_EQL,         SE_W, SE_U)
+COMB(backsp,            KC_BSPC,        SE_U, SE_DOT)
+COMB(wbacksp,           C(SE_W),        SE_W, SE_U, SE_DOT)
+COMB(rev_rep,           REV_REP,        SE_DOT, REPEAT)
 
 // Left home row
 COMB(tab,               KC_TAB,         SE_S, SE_T)
@@ -20,7 +20,7 @@ COMB(enter,             KC_ENT,         SE_A, SE_I)
 COMB(quot,              SE_QUOT,        SE_N, SE_I)
 COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I)
 // Mixed
-COMB(capsword,          CAPSWORD,       SE_T, SE_A)
+COMB(capsword,          CAPSWORD,       SE_T, SE_I)
 
 // Left bottom row
 COMB(vsp,               VIM_VS,         SE_V, SE_G)
@@ -31,30 +31,30 @@ COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
 COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
 
 // Vertical top left
-SUBS(small_left_arrow,  "<-",           KC_Y, SE_T)
-SUBS(lt_eq,             "<=",           KC_F, SE_H)
+SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
+SUBS(lt_eq,             "<=",           SE_F, SE_H)
 // Vertical top right
-SUBS(large_right_arrow, "=>",           KC_W, SE_N)
-SUBS(small_right_arrow, "->",           REPEAT, SE_A)
-SUBS(pipe_to,           "|>",           KC_U, SE_I)
+SUBS(large_right_arrow, "=>",           SE_W, SE_N)
+SUBS(small_right_arrow, "->",           SE_U, SE_I)
+SUBS(pipe_to,           "|>",           SE_DOT, SE_A)
 // Vertical bottom left
 COMB(sp,                VIM_SP,         SE_S, SE_V)
-SUBS(gt_eq,             ">=",           SE_H, KC_D)
+SUBS(gt_eq,             ">=",           SE_H, SE_D)
 
 // Thumbs
 COMB(num,               NUMWORD,        MT_SPC, SE_E)
 
 // Thumb numbers
-COMB(e_0,               SE_0,           SE_E, SE_T)
-COMB(e_1,               SE_1,           SE_E, SE_A)
-COMB(e_2,               SE_2,           SE_E, SE_H)
-COMB(e_3,               SE_3,           SE_E, SE_N)
-COMB(e_4,               SE_4,           SE_E, SE_S)
-COMB(e_5,               SE_5,           SE_E, SE_I)
 COMB(e_6,               SE_6,           SE_E, SE_R)
-COMB(e_7,               SE_7,           SE_E, SE_O)
+COMB(e_4,               SE_4,           SE_E, SE_S)
+COMB(e_0,               SE_0,           SE_E, SE_T)
+COMB(e_2,               SE_2,           SE_E, SE_H)
 COMB(e_8,               SE_8,           SE_E, SE_D)
 COMB(e_9,               SE_9,           SE_E, SE_L)
+COMB(e_3,               SE_3,           SE_E, SE_N)
+COMB(e_1,               SE_1,           SE_E, SE_I)
+COMB(e_5,               SE_5,           SE_E, SE_A)
+COMB(e_7,               SE_7,           SE_E, SE_O)
 
 // Thumb symbols
 // Upper
@@ -72,8 +72,8 @@ COMB(sp_mins,            SE_MINS,        MT_SPC, SE_H)
 COMB(sp_bsls,            SE_BSLS,        MT_SPC, SE_K)
 COMB(sp_grv,             GRV,            MT_SPC, SE_M)
 COMB(sp_ques,            SE_QUES,        MT_SPC, SE_N)
-COMB(sp_lbrc,            SE_LBRC,        MT_SPC, SE_A)
-COMB(sp_rbrc,            SE_RBRC,        MT_SPC, SE_I)
+COMB(sp_lbrc,            SE_LBRC,        MT_SPC, SE_I)
+COMB(sp_rbrc,            SE_RBRC,        MT_SPC, SE_A)
 // Lower
 COMB(sp_labk,            SE_LABK,        MT_SPC, SE_V)
 COMB(sp_rabk,            SE_RABK,        MT_SPC, SE_G)

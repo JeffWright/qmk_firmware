@@ -72,5 +72,6 @@ void update_reverse_repeat_key(keyrecord_t *record) {
     update_reverse_key_pairs(SE_U, C(SE_R), record);
     update_reverse_key_pairs(SE_LCBR, SE_RCBR, record);
     update_reverse_key_pairs(G(SE_K), G(SE_J), record);
+    update_reverse_key_pairs(C(SE_O), C(SE_I), record);
 }
 

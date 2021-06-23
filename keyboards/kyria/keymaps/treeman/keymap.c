@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,                                        SE_X,    SE_W,    SE_DOT,  SE_U,    REPEAT,  xxxxxxx,
-      xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_K,                                        SE_M,    SE_N,    SE_A,    SE_I,    SE_O,    xxxxxxx,
+      xxxxxxx, SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,                                        SE_X,    SE_W,    SE_U,    SE_DOT,  REPEAT,  xxxxxxx,
+      xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_K,                                        SE_M,    SE_N,    SE_I,    SE_A,    SE_O,    xxxxxxx,
       xxxxxxx, SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, xxxxxxx
     ),
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_NUM] = LAYOUT(
-      xxxxxxx, SE_J,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, SE_DOT,  xxxxxxx, REPEAT,  xxxxxxx,
+      xxxxxxx, SE_J,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, SE_DOT,  REPEAT,  xxxxxxx,
       xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    SE_K,                                        xxxxxxx, SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
       xxxxxxx, SE_COMM, xxxxxxx, NUM_G,   SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
-      xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_HASH, SE_DOT,  SE_AT,   REPEAT,  xxxxxxx,
+      xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_HASH, SE_AT,   SE_DOT,  REPEAT,  xxxxxxx,
       xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     GRV,     SE_QUES, SE_LBRC, SE_RBRC, xxxxxxx, xxxxxxx,
       xxxxxxx, C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CLEAR,   FUN,     xxxxxxx, _______
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_SPEC] = LAYOUT(
-      xxxxxxx, SE_TILD, _______, _______, _______, _______,                                     _______, _______, SE_DIAE, _______, _______, xxxxxxx,
+      xxxxxxx, SE_TILD, _______, _______, _______, _______,                                     _______, _______, _______, SE_DIAE, _______, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, SE_ACUT,                                     SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
@@ -568,9 +568,8 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_C:
         case SE_S:
         case SE_V:
+        case SE_A:
         case SE_DOT:
-        case SE_U:
-        case SE_I:
         case SE_RPRN:
         case RPRN_ADIA:
             return 105;
@@ -578,7 +577,8 @@ uint16_t tap_hold_timeout(uint16_t keycode) {
         case SE_Y:
         case SE_T:
         case SE_G:
-        case SE_A:
+        case SE_U:
+        case SE_I:
         case SE_LPRN:
         case LPRN_ARNG:
             return 100;
