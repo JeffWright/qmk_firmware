@@ -3,6 +3,7 @@ ENCODER_ENABLE = yes        # One or more encoders
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = yes
 
+
 # Easy definition of combos
 VPATH +=  keyboards/gboards/
 
@@ -13,7 +14,7 @@ MOUSEKEY_ENABLE = no        # Them mouse keys yo
 KEY_OVERRIDE_ENABLE = no
 LEADER_ENABLE = no
 TAP_DANCE_ENABLE = no
-RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
+RGBLIGHT_ENABLE = yes        # Keyboard RGB underglow
 RGB_MATRIX_ENABLE = no      # Disable RGB, not used on Kyria
 
 # Saves a bunch of memory
@@ -26,11 +27,11 @@ MAGIC_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 
-SRC += oneshot.c
+# SRC += oneshot.c
 SRC += layermodes.c
 SRC += casemodes.c
-SRC += tap_hold.c
-SRC += repeat.c
+# SRC += tap_hold.c
+# SRC += repeat.c
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
 	SRC += encoder_utils.c

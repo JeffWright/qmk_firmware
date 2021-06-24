@@ -40,16 +40,16 @@ bool process_num_word(uint16_t keycode, const keyrecord_t *record) {
             keycode = keycode & 0xFF;
     }
     switch (keycode) {
-        case SE_1 ... SE_0:
-        case SE_PERC:
-        case SE_COMM:
-        case SE_DOT:
-        case SE_SLSH:
-        case SE_MINS:
-        case SE_ASTR:
-        case SE_PLUS:
-        case SE_EQL:
-        case SE_UNDS:
+        case KC_1 ... KC_0:
+        case KC_PERC:
+        case KC_COMM:
+        case KC_DOT:
+        case KC_SLSH:
+        case KC_MINS:
+        case KC_ASTR:
+        case KC_PLUS:
+        case KC_EQL:
+        case KC_UNDS:
         case KC_BSPC:
         case xxxxxxx:
             // Don't disable for above keycodes

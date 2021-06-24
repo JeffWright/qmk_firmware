@@ -25,9 +25,20 @@
     #define RGBLIGHT_LAYERS
 #endif
 
+
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT 
+// Apply the modifier on keys that are tapped during a short hold of a modtap
+// (hold F tap/release E -> Shift-E)
+#define PERMISSIVE_HOLD
+
+#define TAPPING_TERM 200
+
+
+/*
 // Home-row mods: https://precondition.github.io/home-row-mods#tap-hold-configuration-settings
 // Configure the global tapping term (default: 200ms)
-#define TAPPING_TERM_PER_KEY
+//#define TAPPING_TERM_PER_KEY
 #ifdef TAPPING_TERM_PER_KEY
 #define TAPPING_TERM 170
 #else
@@ -37,11 +48,11 @@
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+// #define TAPPING_FORCE_HOLD
 // Apply the modifier on keys that are tapped during a short hold of a modtap
-#define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD
 // Immediately turn on layer if key is pressed quickly
-#define HOLD_ON_OTHER_KEY_PRESS
+//#define HOLD_ON_OTHER_KEY_PRESS
 // Don't fire mods on the same side
 //#define BILATERAL_COMBINATIONS 400
 
@@ -80,3 +91,7 @@
 // These are a bit iffy, as I don't know what they're doing, but it "works fine" according to Discord people
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
+*/
+
+#define DEFAULT_XCASE_SEPARATOR KC_MINS
+#define XCASE_DELIMITER_KEY KC_UNDS

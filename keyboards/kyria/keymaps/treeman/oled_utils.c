@@ -21,8 +21,8 @@ void render_layers(void) {
         case _BASE:
             oled_write_P(PSTR("Base\n"), false);
             break;
-        case _SWE:
-            oled_write_P(PSTR("Swe\n"), false);
+        case _SYM:
+            oled_write_P(PSTR("Symbols\n"), false);
             break;
         case _NUM:
             oled_write_P(PSTR("Num\n"), false);

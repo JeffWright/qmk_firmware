@@ -8,7 +8,7 @@
 
 enum layers {
     _BASE = 0,
-    _SWE,
+    _SYM,
     _NUM,
     _GAME,
     _GAME2,
@@ -20,6 +20,23 @@ enum layers {
     _OPT,
     _SPEC
 };
+
+#define BSP_SYM LT(_SYM, KC_BSPACE)
+#define TAB_NAV LT(_NAV, KC_TAB)
+#define ENTR_NUM LT(_NUM, KC_ENTER)
+
+#define HRM_A    LGUI_T(KC_A)
+#define HRM_SCLN RGUI_T(KC_SCLN)
+
+#define HRM_S    LALT_T(KC_S)
+#define HRM_L    RALT_T(KC_L)
+
+#define HRM_D    LCTL_T(KC_D)
+#define HRM_K    RCTL_T(KC_K)
+
+#define HRM_F LSFT_T(KC_F)
+#define HRM_J RSFT_T(KC_J)
+
 
 enum custom_keycodes {
     // Direct dead keys ~`^

@@ -20,11 +20,11 @@
 #include "oneshot.h"
 #include "casemodes.h"
 #include "layermodes.h"
-#include "tap_hold.h"
-#include "repeat.h"
+//#include "tap_hold.h"
+//#include "repeat.h"
 
-#include "keymap_swedish.h"
-#include "sendstring_swedish.h"
+//#include "keymap_swedish.h"
+//#include "sendstring_swedish.h"
 #include "g/keymap_combo.h"
 
 #ifdef ENCODER_ENABLE
@@ -35,51 +35,52 @@
 #    include "oled_utils.h"
 #endif
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, SE_J,    SE_C,    SE_Y,    SE_F,    SE_P,                                        SE_X,    SE_W,    SE_U,    SE_DOT,  REPEAT,  xxxxxxx,
-      xxxxxxx, SE_R,    SE_S,    SE_T,    SE_H,    SE_K,                                        SE_M,    SE_N,    SE_I,    SE_A,    SE_O,    xxxxxxx,
-      xxxxxxx, SE_COMM, SE_V,    SE_G,    SE_D,    SE_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_L,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
-                                 xxxxxxx, xxxxxxx, LMOD,    MT_SPC,  xxxxxxx, xxxxxxx, SE_E,    RMOD,    xxxxxxx, xxxxxxx
+      xxxxxxx, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       RESET,
+      KC_ESC,  HRM_A,   HRM_S,   HRM_D,   HRM_F,   KC_G,                                        KC_H,    HRM_J,   HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOTE,
+      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
+                                 CAPSWORD,NUMWORD, KC_LCTRL, MT_SPC,  TAB_NAV,  ENTR_NUM, BSP_SYM,   KC_DEL,  xxxxxxx, xxxxxxx
     ),
-    [_SWE] = LAYOUT(
-      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
-      xxxxxxx, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, xxxxxxx,
-      xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, SE_ARNG, SE_ADIA, SE_ODIA, xxxxxxx,
+    [_SYM] = LAYOUT(
+      xxxxxxx, KC_GRAVE,KC_MINUS,KC_LT,   KC_GT,   KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH, xxxxxxx,
+      KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                                    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_DOLLAR,
+      xxxxxxx, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, _______, xxxxxxx, _______
+    ),
+    [_NAV] = LAYOUT(
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_HOME, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_NUM] = LAYOUT(
-      xxxxxxx, SE_J,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, SE_DOT,  REPEAT,  xxxxxxx,
-      xxxxxxx, SE_6,    SE_4,    SE_0,    SE_2,    SE_K,                                        xxxxxxx, SE_3,    SE_1,    SE_5,    SE_7,    xxxxxxx,
-      xxxxxxx, SE_COMM, xxxxxxx, NUM_G,   SE_8,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_9,    SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
-    ),
-    [_NAV] = LAYOUT(
-      xxxxxxx, SC_TAB,  C_TAB,   KC_UP,   KC_PGUP, KC_HOME,                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), REV_REP, xxxxxxx,
-      xxxxxxx, xxxxxxx, KC_LEFT, DN_CTRL, KC_RGHT, KC_ENT,                                      xxxxxxx, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_PGDN, KC_END,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, WNAV,    _______, xxxxxxx, _______
+      xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, 
+      xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    KC_SPC,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+                                 _______, _______, _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
     [_LMOD] = LAYOUT(
-      xxxxxxx, OPT,     C(SE_A), C(SE_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, SE_HASH, SE_AT,   SE_DOT,  REPEAT,  xxxxxxx,
-      xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     GRV,     SE_QUES, SE_LBRC, SE_RBRC, xxxxxxx, xxxxxxx,
-      xxxxxxx, C(SE_Z), C(SE_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_SLSH, SE_AMPR, SE_LPRN, SE_RPRN, SE_UNDS, xxxxxxx,
+      xxxxxxx, OPT,     C(KC_A), C(KC_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, KC_HASH, KC_AT,   KC_DOT,  REPEAT,  xxxxxxx,
+      xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     GRV,     KC_QUES, KC_LBRC, KC_RBRC, xxxxxxx, xxxxxxx,
+      xxxxxxx, C(KC_Z), C(KC_X), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_SLSH, KC_AMPR, KC_LPRN, KC_RPRN, KC_UNDS, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, CLEAR,   FUN,     xxxxxxx, _______
     ),
     [_RMOD] = LAYOUT(
-      xxxxxxx, TILD,    SE_PLUS, SE_ASTR, SE_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,    xxxxxxx,
-      xxxxxxx, SE_PIPE, SE_LCBR, SE_RCBR, SE_MINS, SE_BSLS,                                     xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
-      xxxxxxx, SE_COMM, SE_LABK, SE_RABK, SE_EXLM, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
+      xxxxxxx, TILD,    KC_PLUS, KC_ASTR, KC_PERC, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SPEC,    xxxxxxx,
+      xxxxxxx, KC_PIPE, KC_LCBR, KC_RCBR, KC_MINS, KC_BSLS,                                     xxxxxxx, OS_GUI,  OS_CTRL, OS_SHFT, OS_ALT,  xxxxxxx,
+      xxxxxxx, KC_COMM, KC_LABK, KC_RABK, KC_EXLM, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, MY_RALT, xxxxxxx,
                                  _______, xxxxxxx, FUN,     _______, xxxxxxx, xxxxxxx, CLEAR,  _______, xxxxxxx, _______
     ),
     [_WNAV] = LAYOUT(
-      xxxxxxx, xxxxxxx, G(SE_C), G(SE_K), xxxxxxx, G(SE_J),                                     xxxxxxx, G(SE_W), G(SE_E), G(SE_R), xxxxxxx, xxxxxxx,
-      xxxxxxx, G(SE_6), G(SE_4), G(SE_0), G(SE_2), xxxxxxx,                                     xxxxxxx, G(SE_3), G(SE_1), G(SE_5), G(SE_7), xxxxxxx,
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_8), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(SE_9), G(SE_H), G(SE_L), xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, G(KC_C), G(KC_K), xxxxxxx, G(KC_J),                                     xxxxxxx, G(KC_W), G(KC_E), G(KC_R), xxxxxxx, xxxxxxx,
+      xxxxxxx, G(KC_6), G(KC_4), G(KC_0), G(KC_2), xxxxxxx,                                     xxxxxxx, G(KC_3), G(KC_1), G(KC_5), G(KC_7), xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(KC_8), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(KC_9), G(KC_H), G(KC_L), xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, G(KC_SPC),xxxxxxx,xxxxxxx, CLEAR,   _______, xxxxxxx, _______
     ),
     [_FUN] = LAYOUT(
@@ -95,20 +96,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_SPEC] = LAYOUT(
-      xxxxxxx, SE_TILD, _______, _______, _______, _______,                                     _______, _______, _______, SE_DIAE, _______, xxxxxxx,
-      xxxxxxx, _______, _______, _______, _______, SE_ACUT,                                     SE_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT, xxxxxxx,
+      xxxxxxx, KC_TILD, _______, _______, _______, _______,                                     _______, _______, _______, xxxxxxx, _______, xxxxxxx,
+      xxxxxxx, _______, _______, _______, _______, xxxxxxx,                                     KC_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_GAME] = LAYOUT(
-      xxxxxxx, KC_ENT,  SE_Q,    SE_W,    SE_E,    SE_R,                                        SE_T,    SE_Y,    SE_U,    SE_I,    SE_O,    xxxxxxx,
-      xxxxxxx, KC_LSFT, SE_A,    SE_S,    SE_D,    SE_F,                                        SE_G,    SE_H,    SE_J,    SE_K,    SE_L,    xxxxxxx,
-      xxxxxxx, KC_LCTL, SE_Z,    SE_X,    SE_C,    SE_V,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, SE_B,    SE_N,    SE_M,    xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, KC_ENT,  KC_Q,    KC_W,    KC_E,    KC_R,                                        KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    xxxxxxx,
+      xxxxxxx, KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                                        KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    xxxxxxx,
+      xxxxxxx, KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_B,    KC_N,    KC_M,    xxxxxxx, xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, GAME2,   MT_SPC,  xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
     ),
     [_GAME2] = LAYOUT(
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     _______, _______, _______, _______, _______, xxxxxxx,
-      xxxxxxx, SE_1,    SE_2,    SE_3,    SE_4,    SE_5,                                        _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        _______, _______, _______, _______, _______, xxxxxxx,
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     )
@@ -144,7 +145,7 @@ bool tap_undead_key(bool key_down, uint16_t code) {
 
 void tap16_repeatable(uint16_t keycode) {
     tap_code16(keycode);
-    register_key_to_repeat(keycode);
+    //register_key_to_repeat(keycode);
 }
 
 void swap_caps_esc(void) {
@@ -203,7 +204,7 @@ void tap_space_shift(uint16_t key, bool key_down) {
     if (key_down) {
         tap_code16(key);
         tap_code(KC_SPC);
-        set_oneshot_mods(MOD_BIT(KC_LSFT));
+        //set_oneshot_mods(MOD_BIT(KC_LSFT));
     }
 }
 
@@ -215,6 +216,9 @@ void double_tap(uint16_t keycode) {
 // Combos
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+
+            return COMBO_TERM + 25;
+	    /*
     switch (index) {
         // Home-row and other tight combos
         case tab:
@@ -241,15 +245,17 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
         default:
             return COMBO_TERM + 25;
     }
+   */
 }
 
 bool get_combo_must_tap(uint16_t index, combo_t *combo) {
-    switch (index) {
-        case del:
-        case backsp:
-        case q_comb:
-        case z_comb:
-        case num:
+    //switch (index) {
+        //case del:
+        //case backsp:
+        //case q_comb:
+        //case z_comb:
+        //case num:
+		/*
         case sp_ampr:
         case sp_pipe:
         case sp_plus:
@@ -267,10 +273,11 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
         case rprn_adia:
         case unds_odia:
         case eql:
-            return false;
-        default:
+	*/
+            //return false;
+        //default:
             return true;
-    }
+    //}
 }
 
 // Tapping terms
@@ -300,10 +307,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     switch (keycode) {
         // Keycodes to ignore (don't disable caps word)
-        case SE_A ... KC_Z:
-        case SE_1 ... KC_0:
-        case SE_MINS:
-        case SE_UNDS:
+        case KC_A ... KC_Z:
+        case KC_1 ... KC_0:
+        case KC_MINS:
+        case KC_UNDS:
         case KC_BSPC:
             // If mod chording disable the mods
             if (record->event.pressed && (get_mods() != 0)) {
@@ -332,6 +339,7 @@ void double_parens_left(uint16_t left, uint16_t right) {
 }
 
 // One-shot mods
+/*
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -401,55 +409,56 @@ void process_oneshot_post(uint16_t keycode, keyrecord_t *record) {
         keycode, record
     );
 }
+*/
 
 // Tap hold
 
 bool tap_hold(uint16_t keycode) {
     switch (keycode) {
-        case SE_DQUO:
-        case SE_AMPR:
-        case SE_PIPE:
-        case SE_PLUS:
-        case SE_ASTR:
-        case SE_MINS:
-        case SE_UNDS:
-        case SE_LABK:
-        case SE_RABK:
-        case SE_HASH:
-        case SE_BSLS:
-        case SE_SLSH:
-        case SE_DOT:
-        case SE_EQL:
-        case SE_EXLM:
-        case SE_PERC:
+        case KC_DQUO:
+        case KC_AMPR:
+        case KC_PIPE:
+        case KC_PLUS:
+        case KC_ASTR:
+        case KC_MINS:
+        case KC_UNDS:
+        case KC_LABK:
+        case KC_RABK:
+        case KC_HASH:
+        case KC_BSLS:
+        case KC_SLSH:
+        case KC_DOT:
+        case KC_EQL:
+        case KC_EXLM:
+        case KC_PERC:
         case GRV:
-        case SE_LPRN:
-        case SE_LCBR:
-        case SE_LBRC:
-        case SE_0:
-        case G(SE_0):
-        case G(SE_1):
-        case G(SE_2):
-        case G(SE_3):
-        case G(SE_4):
-        case G(SE_5):
-        case G(SE_6):
-        case G(SE_7):
-        case G(SE_8):
-        case G(SE_9):
-        case G(SE_K):
-        case G(SE_J):
-        case G(SE_W):
-        case G(SE_E):
-        case G(SE_R):
-        case G(SE_C):
-        case SE_A ... SE_Z:
-        case SE_ARNG:
-        case SE_ADIA:
-        case SE_ODIA:
-        case LPRN_ARNG:
-        case RPRN_ADIA:
-        case UNDS_ODIA:
+        case KC_LPRN:
+        case KC_LCBR:
+        case KC_LBRC:
+        case KC_0:
+        case G(KC_0):
+        case G(KC_1):
+        case G(KC_2):
+        case G(KC_3):
+        case G(KC_4):
+        case G(KC_5):
+        case G(KC_6):
+        case G(KC_7):
+        case G(KC_8):
+        case G(KC_9):
+        case G(KC_K):
+        case G(KC_J):
+        case G(KC_W):
+        case G(KC_E):
+        case G(KC_R):
+        case G(KC_C):
+        case KC_A ... KC_Z:
+        //case KC_ARNG:
+        //case KC_ADIA:
+        //case KC_ODIA:
+        //case LPRN_ARNG:
+        //case RPRN_ADIA:
+        //case UNDS_ODIA:
             return true;
         default:
             return false;
@@ -458,63 +467,65 @@ bool tap_hold(uint16_t keycode) {
 
 void tap_hold_send_hold(uint16_t keycode) {
     switch (keycode) {
-        case SE_AMPR:
-        case SE_PIPE:
-        case SE_PLUS:
-        case SE_ASTR:
-        case SE_MINS:
-        case SE_UNDS:
-        case SE_LABK:
-        case SE_RABK:
-        case SE_HASH:
-        case SE_BSLS:
-        case SE_SLSH:
-        case SE_EQL:
+        case KC_AMPR:
+        case KC_PIPE:
+        case KC_PLUS:
+        case KC_ASTR:
+        case KC_MINS:
+        case KC_UNDS:
+        case KC_LABK:
+        case KC_RABK:
+        case KC_HASH:
+        case KC_BSLS:
+        case KC_SLSH:
+        case KC_EQL:
             double_tap(keycode);
             return;
-        case SE_DQUO:
-        case SE_DOT:
-        case SE_0:
+        case KC_DQUO:
+        case KC_DOT:
+        case KC_0:
             triple_tap(keycode);
             return;
-        case SE_PERC:
+        case KC_PERC:
             send_string("%{}");
             return;
         case GRV:
-            tap_undead_key(true, SE_GRV);
-            tap_undead_key(true, SE_GRV);
-            tap_undead_key(true, SE_GRV);
+            tap_undead_key(true, KC_GRV);
+            tap_undead_key(true, KC_GRV);
+            tap_undead_key(true, KC_GRV);
             return;
-        case SE_LPRN:
-            double_parens_left(keycode, SE_RPRN);
+        case KC_LPRN:
+            double_parens_left(keycode, KC_RPRN);
             return;
-        case SE_LCBR:
-            double_parens_left(keycode, SE_RCBR);
+        case KC_LCBR:
+            double_parens_left(keycode, KC_RCBR);
             return;
-        case SE_LBRC:
-            double_parens_left(keycode, SE_RBRC);
+        case KC_LBRC:
+            double_parens_left(keycode, KC_RBRC);
             return;
+	    /*
         case LPRN_ARNG:
             if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_LPRN);
+                tap16_repeatable(KC_LPRN);
             } else {
-                tap16_repeatable(S(SE_ARNG));
+                tap16_repeatable(S(KC_ARNG));
             }
             return;
         case RPRN_ADIA:
             if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_RPRN);
+                tap16_repeatable(KC_RPRN);
             } else {
-                tap16_repeatable(S(SE_ADIA));
+                tap16_repeatable(S(KC_ADIA));
             }
             return;
         case UNDS_ODIA:
             if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_UNDS);
+                tap16_repeatable(KC_UNDS);
             } else {
-                tap16_repeatable(S(SE_ODIA));
+                tap16_repeatable(S(KC_ODIA));
             }
             return;
+	    */
         default:
             tap16_repeatable(S(keycode));
     }
@@ -522,30 +533,32 @@ void tap_hold_send_hold(uint16_t keycode) {
 void tap_hold_send_tap(uint16_t keycode) {
     switch (keycode) {
         case GRV:
-            register_key_to_repeat(keycode);
-            tap_undead_key(true, SE_GRV);
+            //register_key_to_repeat(keycode);
+            tap_undead_key(true, KC_GRV);
             return;
+	    /*
         case LPRN_ARNG:
             if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_LPRN);
+                tap16_repeatable(KC_LPRN);
             } else {
-                tap16_repeatable(SE_ARNG);
+                tap16_repeatable(KC_ARNG);
             }
             return;
         case RPRN_ADIA:
             if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_RPRN);
+                tap16_repeatable(KC_RPRN);
             } else {
-                tap16_repeatable(SE_ADIA);
+                tap16_repeatable(KC_ADIA);
             }
             return;
         case UNDS_ODIA:
             if (IS_LAYER_ON(_SWE)) {
-                tap16_repeatable(SE_UNDS);
+                tap16_repeatable(KC_UNDS);
             } else {
-                tap16_repeatable(SE_ODIA);
+                tap16_repeatable(KC_ODIA);
             }
             return;
+	    */
         default:
             tap16_repeatable(keycode);
     }
@@ -554,32 +567,32 @@ void tap_hold_send_tap(uint16_t keycode) {
 uint16_t tap_hold_timeout(uint16_t keycode) {
     switch (keycode) {
         // Thumb
-        case SE_E:
+        case KC_E:
             return 120;
         // Pinky
-        case SE_R:
-        case SE_COMM:
-        case SE_O:
-        case SE_UNDS:
+        case KC_R:
+        case KC_COMM:
+        case KC_O:
+        case KC_UNDS:
         case UNDS_ODIA:
             return 135;
         // Ring
-        case SE_J:
-        case SE_C:
-        case SE_S:
-        case SE_V:
-        case SE_A:
-        case SE_DOT:
-        case SE_RPRN:
+        case KC_J:
+        case KC_C:
+        case KC_S:
+        case KC_V:
+        case KC_A:
+        case KC_DOT:
+        case KC_RPRN:
         case RPRN_ADIA:
             return 105;
         // Middle
-        case SE_Y:
-        case SE_T:
-        case SE_G:
-        case SE_U:
-        case SE_I:
-        case SE_LPRN:
+        case KC_Y:
+        case KC_T:
+        case KC_G:
+        case KC_U:
+        case KC_I:
+        case KC_LPRN:
         case LPRN_ARNG:
             return 100;
         // Index
@@ -595,15 +608,15 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_case_modes(keycode, record)) {
         return false;
     }
-    if (!process_tap_hold(keycode, record)) {
-        return false;
-    }
+    //if (!process_tap_hold(keycode, record)) {
+        //return false;
+    //}
 
     switch (keycode) {
-        case KC_ESC:
-            return process_escape(record->event.pressed);
-        case KC_CAPS:
-            return process_caps(record->event.pressed);
+        //case KC_ESC:
+            //return process_escape(record->event.pressed);
+        //case KC_CAPS:
+            //return process_caps(record->event.pressed);
         case TG_NIX:
             if (record->event.pressed) {
                 tg_nix();
@@ -615,24 +628,24 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case CLEAR:
-            clear_oneshot_mods();
-            if (get_oneshot_layer() != 0) {
-                clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-            }
+            //clear_oneshot_mods();
+            //if (get_oneshot_layer() != 0) {
+                //clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+            //}
             layer_move(_BASE);
             return false;
         case TILD:
-            register_key_to_repeat(TILD);
-            return tap_undead_key(record->event.pressed, SE_TILD);
-        case CIRC:
-            switch (get_highest_layer(layer_state)) {
-                case _SPEC:
-                    tap_code16(SE_CIRC);
-                    return false;
-                default:
-                    register_key_to_repeat(CIRC);
-                    return tap_undead_key(record->event.pressed, SE_CIRC);
-            }
+            //register_key_to_repeat(TILD);
+            return tap_undead_key(record->event.pressed, KC_TILD);
+        //case CIRC:
+            //switch (get_highest_layer(layer_state)) {
+                //case _SPEC:
+                    //tap_code16(KC_CIRC);
+                    //return false;
+                //default:
+                    //register_key_to_repeat(CIRC);
+                    //return tap_undead_key(record->event.pressed, KC_CIRC);
+            //}
         case TO_NUM:
             layer_on(_NUM);
             return false;
@@ -647,34 +660,34 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         case SAVE_VIM:
             if (record->event.pressed) {
                 tap_escape();
-                tap_code16(SE_COLN);
-                tap_code(SE_W);
+                tap_code16(KC_COLN);
+                tap_code(KC_W);
                 tap_code(KC_ENT);
             }
             return false;
-        case CLOSE_VIM:
-            if (record->event.pressed) {
-                tap_escape();
-                tap_code16(SE_COLN);
-                tap_code(SE_Q);
-                tap_code(KC_ENT);
-            }
-            return false;
+        //case CLOKC_VIM:
+            //if (record->event.pressed) {
+                //tap_escape();
+                //tap_code16(KC_COLN);
+                //tap_code(KC_Q);
+                //tap_code(KC_ENT);
+            //}
+            //return false;
         case VIM_SP:
             if (record->event.pressed) {
-                tap_code16(C(SE_W));
-                tap_code(SE_S);
+                tap_code16(C(KC_W));
+                tap_code(KC_S);
             }
             return false;
         case VIM_VS:
             if (record->event.pressed) {
-                tap_code16(C(SE_W));
-                tap_code(SE_V);
+                tap_code16(C(KC_W));
+                tap_code(KC_V);
             }
             return false;
         case NUM_G:
             if (record->event.pressed) {
-                tap_code16(S(SE_G));
+                tap_code16(S(KC_G));
             }
             return false;
         case CANCEL:
@@ -717,36 +730,36 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case REPEAT:
-            update_repeat_key(record);
-            return false;
-        case REV_REP:
-            update_reverse_repeat_key(record);
-            return false;
+        //case REPEAT:
+            //update_repeat_key(record);
+            //return false;
+        //case REV_REP:
+            //update_reverse_repeat_key(record);
+            //return false;
     }
 
     return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    process_oneshot_pre(keycode, record);
+    //process_oneshot_pre(keycode, record);
 
     bool res = _process_record_user(keycode, record);
 
     // If `false` was returned, then we did something special and should register that manually.
     // Otherwise register it here by default.
     // Skip Space to not interfere with NAV toggling.
-    if (res && record->event.pressed && keycode != MT_SPC) {
-        register_key_to_repeat(keycode);
-    }
+    //if (res && record->event.pressed && keycode != MT_SPC) {
+        //register_key_to_repeat(keycode);
+    //}
 
-    process_oneshot_post(keycode, record);
+    //process_oneshot_post(keycode, record);
 
     return res;
 }
 
 void matrix_scan_user(void) {
-    tap_hold_matrix_scan();
+   // tap_hold_matrix_scan();
 }
 
 #ifdef OLED_DRIVER_ENABLE

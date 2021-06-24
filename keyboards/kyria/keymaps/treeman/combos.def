@@ -1,3 +1,7 @@
+COMB(undscr_comb,            KC_UNDERSCORE,           KC_COMMA, KC_DOT)
+COMB(exclm_comb,             KC_EXLM,                 KC_DOT, KC_SLASH)
+
+/*
 // Left top row
 COMB(q_comb,            SE_Q,           SE_C, SE_Y)
 COMB(z_comb,            SE_Z,           SE_Y, SE_F)
@@ -15,6 +19,7 @@ COMB(escape,            KC_ESC,         SE_T, SE_H)
 COMB(dquo,              SE_DQUO,        SE_S, SE_H)
 COMB(scln,              SE_SCLN,        SE_S, SE_T, SE_H)
 // Right home row
+
 COMB(coln,              SE_COLN,        SE_N, SE_A)
 COMB(enter,             KC_ENT,         SE_A, SE_I)
 COMB(quot,              SE_QUOT,        SE_N, SE_I)
@@ -23,12 +28,12 @@ COMB(save_vim,          SAVE_VIM,       SE_N, SE_A, SE_I)
 COMB(capsword,          CAPSWORD,       SE_T, SE_I)
 
 // Left bottom row
-COMB(vsp,               VIM_VS,         SE_V, SE_G)
-COMB(close_vim,         CLOSE_VIM,      SE_V, SE_G, SE_D)
+//COMB(vsp,               VIM_VS,         SE_V, SE_G)
+//COMB(close_vim,         CLOSE_VIM,      SE_V, SE_G, SE_D)
 // Right bottom row
-COMB(circ,              CIRC,           SE_L, SE_LPRN)
-COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
-COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
+//COMB(circ,              CIRC,           SE_L, SE_LPRN)
+//COMB(dlr,               SE_DLR,         SE_LPRN, SE_RPRN)
+// COMB(swe,               TG(_SWE),       SE_L, SE_LPRN, SE_RPRN)
 
 // Vertical top left
 SUBS(small_left_arrow,  "<-",           SE_Y, SE_T)
@@ -38,23 +43,23 @@ SUBS(large_right_arrow, "=>",           SE_W, SE_N)
 SUBS(small_right_arrow, "->",           SE_U, SE_I)
 SUBS(pipe_to,           "|>",           SE_DOT, SE_A)
 // Vertical bottom left
-COMB(sp,                VIM_SP,         SE_S, SE_V)
-SUBS(gt_eq,             ">=",           SE_H, SE_D)
+//COMB(sp,                VIM_SP,         SE_S, SE_V)
+//SUBS(gt_eq,             ">=",           SE_H, SE_D)
 
 // Thumbs
 COMB(num,               NUMWORD,        MT_SPC, SE_E)
 
 // Thumb numbers
-COMB(e_6,               SE_6,           SE_E, SE_R)
-COMB(e_4,               SE_4,           SE_E, SE_S)
-COMB(e_0,               SE_0,           SE_E, SE_T)
-COMB(e_2,               SE_2,           SE_E, SE_H)
-COMB(e_8,               SE_8,           SE_E, SE_D)
-COMB(e_9,               SE_9,           SE_E, SE_L)
-COMB(e_3,               SE_3,           SE_E, SE_N)
-COMB(e_1,               SE_1,           SE_E, SE_I)
-COMB(e_5,               SE_5,           SE_E, SE_A)
-COMB(e_7,               SE_7,           SE_E, SE_O)
+//COMB(e_6,               SE_6,           SE_E, SE_R)
+//COMB(e_4,               SE_4,           SE_E, SE_S)
+//COMB(e_0,               SE_0,           SE_E, SE_T)
+//COMB(e_2,               SE_2,           SE_E, SE_H)
+//COMB(e_8,               SE_8,           SE_E, SE_D)
+//COMB(e_9,               SE_9,           SE_E, SE_L)
+//COMB(e_3,               SE_3,           SE_E, SE_N)
+//COMB(e_1,               SE_1,           SE_E, SE_I)
+//COMB(e_5,               SE_5,           SE_E, SE_A)
+//COMB(e_7,               SE_7,           SE_E, SE_O)
 
 // Thumb symbols
 // Upper
@@ -88,3 +93,4 @@ SUBS(https,             "https://",             MT_SPC, SE_SLSH)
 //SUBS(turbofish,         "::<>"SS_TAP(X_LEFT),   MT_SPC, SE_COMM)
 //SUBS(rust_debug,        "{:?}",                 MT_SPC, SE_LPRN)
 //SUBS(rust_vdebug,       "{:#?}",                MT_SPC, SE_RPRN)
+*/
