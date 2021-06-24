@@ -34,6 +34,8 @@
 
 #define TAPPING_TERM 200
 
+#define CAPSWORD_USE_SHIFT
+
 
 /*
 // Home-row mods: https://precondition.github.io/home-row-mods#tap-hold-configuration-settings

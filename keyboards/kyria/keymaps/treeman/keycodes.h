@@ -24,16 +24,21 @@ enum layers {
 #define BSP_SYM LT(_SYM, KC_BSPACE)
 #define TAB_NAV LT(_NAV, KC_TAB)
 #define ENTR_NUM LT(_NUM, KC_ENTER)
+#define DEL_FUN LT(_FUN, KC_DELETE)
 
+#define HRM_PNK  KC_LGUI
 #define HRM_A    LGUI_T(KC_A)
 #define HRM_SCLN RGUI_T(KC_SCLN)
 
+#define HRM_RNG  KC_LALT
 #define HRM_S    LALT_T(KC_S)
 #define HRM_L    RALT_T(KC_L)
 
+#define HRM_MID  KC_LCTL
 #define HRM_D    LCTL_T(KC_D)
 #define HRM_K    RCTL_T(KC_K)
 
+#define HRM_IDX  KC_LSHIFT
 #define HRM_F LSFT_T(KC_F)
 #define HRM_J RSFT_T(KC_J)
 
@@ -67,6 +72,7 @@ enum custom_keycodes {
     // Smart caps lock and layers that turn off on certain keys
     CAPSWORD,
     NUMWORD,
+    XCASE,
 
     // Layer management
     CANCEL, // Cancel SYMWORD and NUMWORD

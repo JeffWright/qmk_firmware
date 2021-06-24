@@ -98,11 +98,12 @@ void render_nix(void) {
 }
 
 void render_caps(void) {
-    if (is_caps_swapped()) {
-        oled_write_P(PSTR("(C/E swp)"), false);
-    }
+    //if (is_caps_swapped()) {
+        //oled_write_P(PSTR("(C/E swp)"), false);
+    //}
     bool caps_word = caps_word_enabled();
-    bool xcase = xcase_enabled();
+    //bool xcase = xcase_enabled();
+    bool xcase = get_xcase_state() !=XCASE_OFF;
     if (caps_word && xcase) {
         oled_write_P(PSTR(" SCR_CPS"), false);
     } else if (xcase) {

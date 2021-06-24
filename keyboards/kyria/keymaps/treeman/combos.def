@@ -1,5 +1,9 @@
 COMB(undscr_comb,            KC_UNDERSCORE,           KC_COMMA, KC_DOT)
 COMB(exclm_comb,             KC_EXLM,                 KC_DOT, KC_SLASH)
+COMB(rcbr_comb,              KC_RCBR,                 KC_SPC, KC_RPRN)
+COMB(lcbr_comb,              KC_LCBR,                 KC_SPC, KC_LPRN)
+
+COMB(capsword_comb,          CAPSWORD,                 HRM_F, HRM_J)
 
 /*
 // Left top row
