@@ -49,6 +49,9 @@ enum custom_keycodes {
     GRV,
     CIRC,
 
+    CMD_OR_CTRL,
+    TGL_OS,
+
     SAVE_VIM,
     CLOSE_VIM,
     VIM_VS,

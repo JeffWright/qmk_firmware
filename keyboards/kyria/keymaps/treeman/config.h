@@ -31,6 +31,7 @@
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 // (hold F tap/release E -> Shift-E)
 #define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD_PER_KEY
 
 #define TAPPING_TERM 200
 

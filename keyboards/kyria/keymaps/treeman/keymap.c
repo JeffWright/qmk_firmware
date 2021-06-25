@@ -35,8 +35,12 @@
 #    include "oled_utils.h"
 #endif
 
+#define ALT_TAB_TIMEOUT 1000
+
+
 bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
+uint16_t alt_with_tab(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -46,16 +50,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       RESET,
       KC_ESC,  HRM_A,   HRM_S,   HRM_D,   HRM_F,   KC_G,                                        KC_H,    HRM_J,   HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOTE,
       KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
-                                 XCASE,NUMWORD, KC_LCTRL, MT_SPC,  TAB_NAV,  ENTR_NUM, BSP_SYM,   DEL_FUN,  xxxxxxx, xxxxxxx
+                                 XCASE,NUMWORD, CMD_OR_CTRL, MT_SPC,  TAB_NAV,  ENTR_NUM, BSP_SYM,   DEL_FUN,  xxxxxxx, xxxxxxx
     ),
     [_SYM] = LAYOUT(
       xxxxxxx, KC_GRAVE,KC_MINUS,KC_LT,   KC_GT,   KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH, xxxxxxx,
       KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR,
-      xxxxxxx, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, KC_SPC,  xxxxxxx, xxxxxxx, xxxxxxx, _______, xxxxxxx, _______
     ),
     [_NAV] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, TG_NIX, 
       xxxxxxx, HRM_PNK, HRM_RNG, HRM_MID, HRM_IDX, xxxxxxx,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
@@ -63,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
       xxxxxxx, xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
-      xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
                                  _______, CANCEL,  _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
     [_FUN] = LAYOUT(
@@ -617,6 +621,23 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     //}
 
     switch (keycode) {
+	    case CMD_OR_CTRL:
+		    if(in_linux()) {
+			    // pretend it was KC_LCTRL
+                if(record->event.pressed) {
+                    register_code(KC_LCTRL);
+                } else {
+                    unregister_code(KC_LCTRL);
+                }
+		    } else {
+			    // pretend it was KC_LGUI
+                if(record->event.pressed) {
+                    register_code(KC_LGUI);
+                } else {
+                    unregister_code(KC_LGUI);
+                }
+		    }
+		    return false;
         //case KC_ESC:
             //return process_escape(record->event.pressed);
         //case KC_CAPS:
@@ -658,12 +679,18 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case CAPSWORD:
             if (record->event.pressed) {
-                enable_caps_word();
+                if(caps_word_enabled()) {
+                    disable_caps_word();
+                    return false;
+                } else {
+                    enable_caps_word();
+                    return false;
+                }
             }
             return false;
         case XCASE:
             if (record->event.pressed) {
-                enable_xcase();
+                enable_xcase_with(KC_UNDERSCORE);
             }
             return false;
         case SAVE_VIM:
@@ -767,12 +794,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return res;
 }
 
+uint16_t alt_with_tab() {
+    if(in_linux()) {
+        return KC_LALT;
+    } else {
+        return KC_LGUI;
+    }
+}
+
+
 void matrix_scan_user(void) {
    // tap_hold_matrix_scan();
 
   if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1250) {
-      unregister_code(KC_LALT);
+    if (timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
+      unregister_code(alt_with_tab());
       is_alt_tab_active = false;
     }
   }
@@ -792,34 +828,32 @@ void oled_task_user(void) {
 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
-	/*
-    if (index == 0) {
-        action_left_encoder(clockwise);
-#    ifdef OLED_DRIVER_ENABLE
-        oled_on();
-#    endif
-    } else if (index == 1) {
-        action_right_encoder(clockwise);
-#    ifdef OLED_DRIVER_ENABLE
-        oled_on();
-#    endif
-    }
-    */
-
 	if (clockwise) {
 	  if (!is_alt_tab_active) {
 	    is_alt_tab_active = true;
-	    register_code(KC_LALT);
+	    register_code(alt_with_tab());
 	  }
 	  alt_tab_timer = timer_read();
 	  tap_code16(KC_TAB);
 	} else {
 	  if (!is_alt_tab_active) {
 	    is_alt_tab_active = true;
-	    register_code(KC_LALT);
+	    register_code(alt_with_tab());
 	  }
 	  alt_tab_timer = timer_read();
 	  tap_code16(S(KC_TAB));
 	}
 }
 #endif
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HRM_A:
+        case HRM_S:
+        case HRM_L:
+            return false;
+        default:
+            return true;
+    }
+}
+

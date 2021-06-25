@@ -87,7 +87,7 @@ void render_mods(void) {
 }
 
 void render_nix(void) {
-    oled_write_P(in_linux() ? PSTR("Nix") : PSTR("Win"), false);
+    oled_write_P(in_linux() ? PSTR("Linux") : PSTR("Mac"), false);
     /* if (sym_word_enabled()) { */
     /*     oled_write_P(PSTR(" SymWord"), false); */
     /* } */
