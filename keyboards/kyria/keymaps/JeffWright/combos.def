@@ -1,9 +1,24 @@
 COMB(undscr_comb,            KC_UNDERSCORE,           KC_COMMA, KC_DOT)
 COMB(exclm_comb,             KC_EXLM,                 KC_DOT, KC_SLASH)
-COMB(rcbr_comb,              KC_RCBR,                 KC_SPC, KC_RPRN)
-COMB(lcbr_comb,              KC_LCBR,                 KC_SPC, KC_LPRN)
+
+
+// KC_LT
+// KC_RT
+// KC_LBRC
+// KC_RBRC
+// KC_RCBR
+// KC_LCBR
+    
+COMB(rbrc_comb,              KC_RBRC,                 KC_MINUS, KC_RCBR)
+COMB(lbrc_comb,              KC_LBRC,                 KC_MINUS, KC_LCBR)
+COMB(lt_comb,                KC_LT,                   KC_PLUS, KC_LPRN)
+COMB(rt_comb,                KC_GT,                   KC_PLUS, KC_RPRN)
 
 COMB(capsword_comb,          CAPSWORD,                 HRM_F, HRM_J)
+COMB(xcase_comb,             XCASE,                    HRM_F, HRM_K)
+
+
+COMB(opt_comb,             OSL(_OPT),                    KC_HYPR, KC_F2)
 
 /*
 // Left top row

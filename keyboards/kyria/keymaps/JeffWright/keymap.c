@@ -39,44 +39,48 @@
 
 
 bool is_alt_tab_active = false;
+bool is_alt_tab_held = false;
 uint16_t alt_tab_timer = 0;
 uint16_t alt_with_tab(void);
+void press_alt_tab(void);
+void release_alt_tab(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       RESET,
+      xxxxxxx, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       xxxxxxx,
       KC_ESC,  HRM_A,   HRM_S,   HRM_D,   HRM_F,   KC_G,                                        KC_H,    HRM_J,   HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOTE,
       KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
-                                 XCASE,NUMWORD, CMD_OR_CTRL, MT_SPC,  TAB_NAV,  ENTR_NUM, BSP_SYM,   DEL_FUN,  xxxxxxx, xxxxxxx
+                                 NUMWORD, ALTTAB, CMD_OR_CTRL, MT_SPC,  TAB_NAV,  ENTR_NUM, BSP_SYM,   DEL_FUN,  KC_HYPR, KC_F2
     ),
     [_SYM] = LAYOUT(
-      xxxxxxx, KC_GRAVE,KC_MINUS,KC_LT,   KC_GT,   KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH, xxxxxxx,
-      KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR,
-      xxxxxxx, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
+      xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR,   KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
+      KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK,   KC_DOLLAR,
+      _______, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
                                  _______, xxxxxxx, _______, KC_SPC,  xxxxxxx, xxxxxxx, xxxxxxx, _______, xxxxxxx, _______
     ),
     [_NAV] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, TG_NIX, 
-      xxxxxxx, HRM_PNK, HRM_RNG, HRM_MID, HRM_IDX, xxxxxxx,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
+      xxxxxxx,         DYN_MACRO_PLAY1, LGUI(KC_LBRC),xxxxxxx,LGUI(KC_RBRC), xxxxxxx,                           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, 
+      KC_ESC,          HRM_PNK,         HRM_RNG, HRM_MID, HRM_IDX, xxxxxxx,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
+      xxxxxxx,         xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
+                                        _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      xxxxxxx, xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
+      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
       xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
                                  _______, CANCEL,  _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
     [_FUN] = LAYOUT(
-      xxxxxxx, xxxxxxx, KC_F7,   KC_F8,   KC_F9,    xxxxxxx,                                     xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      xxxxxxx, xxxxxxx, KC_F4,   KC_F5,   KC_F6,    xxxxxxx,                                     xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
-      xxxxxxx, xxxxxxx, KC_F1,   KC_F2,   KC_F3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, _______, _______, _______, _______, xxxxxxx, _______
+      xxxxxxx, xxxxxxx, KC_F7,   KC_F8,   KC_F9,    KC_F10,                                      KC_F13,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, RESET,
+      xxxxxxx, xxxxxxx, KC_F4,   KC_F5,   KC_F6,    KC_F11,                                      KC_F14,  HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
+      xxxxxxx, xxxxxxx, KC_F1,   KC_F2,   KC_F3,    KC_F12,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_F15,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+                                 _______, xxxxxxx, _______, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx
     ),
     // Important that the symbols on the base layer have the same positions as these symbols
+    /*
     [_LMOD] = LAYOUT(
       xxxxxxx, OPT,     C(KC_A), C(KC_W), xxxxxxx, xxxxxxx,                                     xxxxxxx, KC_HASH, KC_AT,   KC_DOT,  REPEAT,  xxxxxxx,
       xxxxxxx, OS_ALT,  OS_SHFT, OS_CTRL, OS_GUI,  xxxxxxx,                                     GRV,     KC_QUES, KC_LBRC, KC_RBRC, xxxxxxx, xxxxxxx,
@@ -95,29 +99,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(KC_8), xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, G(KC_9), G(KC_H), G(KC_L), xxxxxxx, xxxxxxx,
                                  _______, xxxxxxx, _______, G(KC_SPC),xxxxxxx,xxxxxxx, CLEAR,   _______, xxxxxxx, _______
     ),
-    [_OPT] = LAYOUT(
-      xxxxxxx, _______, TG_CAPS, _______, _______, _______,                                     _______, TG_NIX,  _______, _______, _______, xxxxxxx,
-      xxxxxxx, _______, _______, KC_CAPS, _______, _______,                                     _______, TO_NUM,  _______, _______, _______, xxxxxxx,
-      xxxxxxx, _______, _______, TO_GAME, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
-    ),
     [_SPEC] = LAYOUT(
       xxxxxxx, KC_TILD, _______, _______, _______, _______,                                     _______, _______, _______, xxxxxxx, _______, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, xxxxxxx,                                     KC_GRV,  SYM_LFT, SYM_DWN, SYM_UP,  SYM_RHT, xxxxxxx,
       xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
+    */
+    [_OPT] = LAYOUT(
+      DYN_REC_STOP, DYN_REC_START1, DYN_REC_START2, _______, _______, _______,                                     _______, TG_NIX,  _______, _______, _______, RESET,  
+      xxxxxxx,      _______,        _______,        _______, _______, TO_GAME,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx,      _______,        _______,        _______, _______, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
+                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
+    ),
     [_GAME] = LAYOUT(
-      xxxxxxx, KC_ENT,  KC_Q,    KC_W,    KC_E,    KC_R,                                        KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    xxxxxxx,
-      xxxxxxx, KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                                        KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    xxxxxxx,
-      xxxxxxx, KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_B,    KC_N,    KC_M,    xxxxxxx, xxxxxxx, xxxxxxx,
-                                 _______, xxxxxxx, GAME2,   MT_SPC,  xxxxxxx, xxxxxxx, CANCEL,  _______, xxxxxxx, _______
+      KC_T,    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    xxxxxxx,
+      KC_G,    KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, xxxxxxx,
+      KC_B,    KC_ENT,  KC_Z,    KC_X,    KC_C,    KC_V,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH, xxxxxxx,
+                                 _______, KC_LALT, KC_LCTL,   KC_SPC,  GAME2, CANCEL,  CANCEL,  _______, xxxxxxx, _______
     ),
     [_GAME2] = LAYOUT(
-      xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                                     _______, _______, _______, _______, _______, xxxxxxx,
+      xxxxxxx, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       _______, _______, _______, _______, _______, xxxxxxx,
       xxxxxxx, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                        _______, _______, _______, _______, _______, xxxxxxx,
       xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, _______, _______, xxxxxxx,
-                                 _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
+                                 _______, _______, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     )
     /*
     [_BLANK] = LAYOUT(
@@ -290,18 +295,21 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
 
 #ifdef TAPPING_TERM_PER_KEY
 
-#define THUMB_TERM 20
-#define INDEX_TERM -20
-#define MIDDLE_TERM 0
-#define RING_TERM 80
-#define PINKY_TERM 180
+#define MIDDLE_TERM_EXTRA 0
+#define RING_TERM_EXTRA 50
+#define PINKY_TERM_EXTRA 150
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MT_SPC:
-            return TAPPING_TERM + THUMB_TERM;
-        case DN_CTRL:
-            return TAPPING_TERM + MIDDLE_TERM;
+        case HRM_A:
+        case HRM_SCLN:
+            return TAPPING_TERM + PINKY_TERM_EXTRA;
+        case HRM_S:
+        case HRM_L:
+            return TAPPING_TERM + RING_TERM_EXTRA;
+        case HRM_D:
+        case HRM_K:
+            return TAPPING_TERM + MIDDLE_TERM_EXTRA;
         default:
             return TAPPING_TERM;
     }
@@ -310,10 +318,12 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 // Case modes
 
-/*
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     switch (keycode) {
         // Keycodes to ignore (don't disable caps word)
+        
+        case CAPSWORD:
+
         case KC_A ... KC_Z:
         case KC_1 ... KC_0:
         case KC_MINS:
@@ -332,7 +342,17 @@ bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
     }
     return false;
 }
-*/
+
+/* overrideable function to determine whether to use the default separator on
+ * first keypress when waiting for the separator. */
+bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
+    switch (keycode) {
+         case KC_A ... KC_Z:
+         case KC_1 ... KC_0:
+             return true;
+    }
+    return false;
+}
 
 void triple_tap(uint16_t keycode) {
     tap_code16(keycode);
@@ -679,20 +699,35 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case CAPSWORD:
             if (record->event.pressed) {
-                if(caps_word_enabled()) {
-                    disable_caps_word();
-                    return false;
-                } else {
+                toggle_caps_word();
+//                if(caps_word_enabled()) {
+ //                   disable_caps_word();
+  //                  return false;
+   //             } else {
+    //                enable_caps_word();
+     //               return false;
+      //          }
+                return false;
+            }
+        case XCASE:
+            if (record->event.pressed) {
+                if(get_xcase_state() == XCASE_OFF) {
+                    enable_xcase_with(KC_UNDERSCORE);
                     enable_caps_word();
-                    return false;
+                    //enable_xcase();
+                } else {
+                    disable_xcase();
                 }
             }
             return false;
-        case XCASE:
-            if (record->event.pressed) {
-                enable_xcase_with(KC_UNDERSCORE);
+        case ALTTAB:
+            if(record->event.pressed) {
+                press_alt_tab();
+                return false;
+            } else {
+                release_alt_tab();
+                return false;
             }
-            return false;
         case SAVE_VIM:
             if (record->event.pressed) {
                 tap_escape();
@@ -802,11 +837,24 @@ uint16_t alt_with_tab() {
     }
 }
 
+void press_alt_tab() {
+    if (!is_alt_tab_active) {
+        is_alt_tab_active = true;
+        register_code(alt_with_tab());
+    }
+    is_alt_tab_held = true;
+    alt_tab_timer = timer_read();
+    tap_code16(KC_TAB);
+}
+void release_alt_tab() {
+    is_alt_tab_held = false;
+}
+
 
 void matrix_scan_user(void) {
    // tap_hold_matrix_scan();
 
-  if (is_alt_tab_active) {
+  if (is_alt_tab_active && !is_alt_tab_held) {
     if (timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
       unregister_code(alt_with_tab());
       is_alt_tab_active = false;
@@ -828,6 +876,7 @@ void oled_task_user(void) {
 
 
 void encoder_update_user(uint8_t index, bool clockwise) {
+    /* for alt-tab:
 	if (clockwise) {
 	  if (!is_alt_tab_active) {
 	    is_alt_tab_active = true;
@@ -843,6 +892,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	  alt_tab_timer = timer_read();
 	  tap_code16(S(KC_TAB));
 	}
+    */
+    if (clockwise) {
+	  tap_code16(KC_MS_WH_DOWN);
+	  tap_code16(KC_MS_WH_DOWN);
+	  tap_code16(KC_MS_WH_DOWN);
+    } else {
+	  tap_code16(KC_MS_WH_UP);
+	  tap_code16(KC_MS_WH_UP);
+	  tap_code16(KC_MS_WH_UP);
+    }
 }
 #endif
 

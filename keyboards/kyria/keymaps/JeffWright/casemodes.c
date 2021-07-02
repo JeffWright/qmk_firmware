@@ -243,6 +243,11 @@ bool process_case_modes(uint16_t keycode, const keyrecord_t *record) {
             } // end XCASE_ON
 
             // check if the case modes have been terminated
+            //if (keycode == KC_ESC) {
+                //disable_caps_word();
+                //disable_xcase();
+                //return false;
+            //} else if (terminate_case_modes(keycode, record)) {
             if (terminate_case_modes(keycode, record)) {
                 disable_caps_word();
                 disable_xcase();

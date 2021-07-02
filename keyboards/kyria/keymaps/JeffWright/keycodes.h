@@ -50,7 +50,7 @@ enum custom_keycodes {
     CIRC,
 
     CMD_OR_CTRL,
-    TGL_OS,
+    ALTTAB,
 
     SAVE_VIM,
     CLOSE_VIM,
