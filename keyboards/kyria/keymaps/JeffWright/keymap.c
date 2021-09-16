@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * Base Layer: Modified RSTHD
     */
     [_BASE] = LAYOUT(
-      xxxxxxx, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       xxxxxxx,
-      KC_ESC,  HRM_A,   HRM_S,   HRM_D,   HRM_F,   KC_G,                                        KC_H,    HRM_J,   HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOTE,
-      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
+      KC_LEAD,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       xxxxxxx,
+      KC_ESC,   HRM_A,  HRM_S,   HRM_D,   HRM_F,   KC_G,                                          KC_H,    HRM_J,   HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOTE,
+      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,       KC_A,    KC_B,     KC_C,     KC_D, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
                                  NUMWORD, ALTTAB, CMD_OR_CTRL, MT_SPC,  TAB_NAV,  ENTR_NUM, BSP_SYM,   DEL_FUN,  KC_HYPR, KC_F2
     ),
     [_SYM] = LAYOUT(
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
+      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_CLN, xxxxxxx, 
       xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
                                  _______, CANCEL,  _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
@@ -113,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_GAME] = LAYOUT(
-      KC_T,    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    xxxxxxx,
-      KC_G,    KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,                                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, xxxxxxx,
-      KC_B,    KC_ENT,  KC_Z,    KC_X,    KC_C,    KC_V,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH, xxxxxxx,
+      KC_ESC,  KC_T,  KC_Q,    KC_W,    KC_E,    KC_R,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    xxxxxxx,
+      KC_LSFT, KC_G,  KC_A,    KC_S,    KC_D,    KC_F,                                        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, xxxxxxx,
+      KC_ENT,  KC_B,  KC_Z,    KC_X,    KC_C,    KC_V,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH, xxxxxxx,
                                  _______, KC_LALT, KC_LCTL,   KC_SPC,  GAME2, CANCEL,  CANCEL,  _______, xxxxxxx, _______
     ),
     [_GAME2] = LAYOUT(
@@ -851,15 +851,52 @@ void release_alt_tab() {
 }
 
 
-void matrix_scan_user(void) {
-   // tap_hold_matrix_scan();
+LEADER_EXTERNS();
 
-  if (is_alt_tab_active && !is_alt_tab_held) {
-    if (timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
-      unregister_code(alt_with_tab());
-      is_alt_tab_active = false;
+void matrix_scan_user(void) {
+    if (is_alt_tab_active) {
+        if (!is_alt_tab_held && timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
+            unregister_code(alt_with_tab());
+            is_alt_tab_active = false;
+        }
     }
-  }
+
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_ONE_KEY(KC_M) {
+            SEND_STRING("MET3-");
+        }
+        SEQ_ONE_KEY(KC_T) {
+            SEND_STRING("// TODO JTW: ");
+        }
+        SEQ_ONE_KEY(KC_A) {
+            SEND_STRING(" -> ");
+        }
+        SEQ_TWO_KEYS(KC_S, KC_B) {
+            SEND_STRING("shouldBeEqualTo ");
+            //SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
+        }
+        SEQ_TWO_KEYS(KC_A, KC_A) {
+            SEND_STRING("nmc12345");
+            //SEND_STRING(KC_ENT);
+        }
+        SEQ_TWO_KEYS(KC_A, KC_B) {
+            SEND_STRING("child1");
+            //SEND_STRING(KC_ENT);
+        }
+        //SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
+            //SEND_STRING("https://start.duckduckgo.com\n");
+        //}
+        //SEQ_TWO_KEYS(KC_A, KC_S) {
+            //register_code(KC_LGUI);
+            //register_code(KC_S);
+            //unregister_code(KC_S);
+            //unregister_code(KC_LGUI);
+        //}
+    }
+
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -897,7 +934,13 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 	  tap_code16(KC_MS_WH_DOWN);
 	  tap_code16(KC_MS_WH_DOWN);
 	  tap_code16(KC_MS_WH_DOWN);
+	  tap_code16(KC_MS_WH_DOWN);
+	  tap_code16(KC_MS_WH_DOWN);
+	  tap_code16(KC_MS_WH_DOWN);
     } else {
+	  tap_code16(KC_MS_WH_UP);
+	  tap_code16(KC_MS_WH_UP);
+	  tap_code16(KC_MS_WH_UP);
 	  tap_code16(KC_MS_WH_UP);
 	  tap_code16(KC_MS_WH_UP);
 	  tap_code16(KC_MS_WH_UP);

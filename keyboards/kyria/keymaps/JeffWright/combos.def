@@ -9,9 +9,13 @@ COMB(exclm_comb,             KC_EXLM,                 KC_DOT, KC_SLASH)
 // KC_RCBR
 // KC_LCBR
     
+// -{  =  [
 COMB(rbrc_comb,              KC_RBRC,                 KC_MINUS, KC_RCBR)
+// -}  =  ]
 COMB(lbrc_comb,              KC_LBRC,                 KC_MINUS, KC_LCBR)
+// -(  =  <
 COMB(lt_comb,                KC_LT,                   KC_PLUS, KC_LPRN)
+// -)  =  >
 COMB(rt_comb,                KC_GT,                   KC_PLUS, KC_RPRN)
 
 COMB(capsword_comb,          CAPSWORD,                 HRM_F, HRM_J)

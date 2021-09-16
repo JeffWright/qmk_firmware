@@ -1,5 +1,4 @@
-#pragma once
-
+#pragma once 
 #include QMK_KEYBOARD_H
 
 #include "keymap_swedish.h"
@@ -41,6 +40,8 @@ enum layers {
 #define HRM_IDX  KC_LSHIFT
 #define HRM_F LSFT_T(KC_F)
 #define HRM_J RSFT_T(KC_J)
+
+#define HRM_CLN RGUI_T(LSFT(KC_SCLN))
 
 
 enum custom_keycodes {
@@ -137,7 +138,7 @@ enum custom_keycodes {
 #define SPEC OSL(_SPEC)
 #define FUN OSL(_FUN)
 
-#define GAME2 OSL(_GAME2)
+#define GAME2 LT(_GAME2, KC_TAB)
 
 #define SYM_LFT ALGR(SE_Y) // ← y
 #define SYM_DWN ALGR(SE_U) // ↓ u
