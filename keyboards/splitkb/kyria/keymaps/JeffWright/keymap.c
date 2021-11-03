@@ -17,7 +17,7 @@
 
 #include "keycodes.h"
 #include "status.h"
-//#include "oneshot.h"
+#include "oneshot.h"
 #include "casemodes.h"
 #include "layermodes.h"
 #include "quantum.h"
@@ -28,12 +28,13 @@
 #    include "encoder_utils.h"
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+//#ifdef OLED_DRIVER_ENABLE
 #    include "oled_utils.h"
-#endif
+//#endif
 
 #define ALT_TAB_TIMEOUT 1000
 
+#define LA_NAV MO(_NAV)
 
 bool is_alt_tab_active = false;
 bool is_alt_tab_held = false;
@@ -42,15 +43,17 @@ uint16_t alt_with_tab(void);
 void press_alt_tab(void);
 void release_alt_tab(void);
 
+oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_ctrl_state = os_up_unqueued;
+oneshot_state os_alt_state = os_up_unqueued;
+oneshot_state os_cmd_state = os_up_unqueued;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-    * Base Layer: Modified RSTHD
-    */
     [_BASE] = LAYOUT(
       KC_LEAD,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       xxxxxxx,
       KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,    KC_QUOTE,
-      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,       KC_A,    KC_B,     KC_C,     KC_D, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
-                                 xxxxxxx, ALTTAB, CMD_OR_CTRL, BSP_SYM,  TAB_NAV,  ENTR_NUM, KC_SPC,   DEL_FNKEYS,  KC_HYPR, KC_F2
+      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,       KC_A,    KC_B,        KC_C,     KC_D, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
+                                 xxxxxxx, ALTTAB, CMD_OR_CTRL, MO(_SYM),  LA_NAV,  MO(_NUM), KC_SPC,   DEL_FNKEYS,  KC_HYPR, KC_F2
     ),
     [_SYM] = LAYOUT(
       xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
@@ -97,6 +100,16 @@ void tg_nix(void) {
         oled_on();
 #   endif
 }
+
+//#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_180;
+}
+
+void oled_task_user(void) {
+    render_status();
+}
+//#endif
 
 // Combos
 
@@ -234,9 +247,24 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    //process_oneshot_pre(keycode, record);
+    update_oneshot(
+        &os_shft_state, KC_LSFT, OS_SHFT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_ctrl_state, KC_LCTL, OS_CTRL,
+        keycode, record
+    );
+    update_oneshot(
+        &os_alt_state, KC_LALT, OS_ALT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_cmd_state, KC_LCMD, OS_CMD,
+        keycode, record
+    );
 
-    bool res = _process_record_user(keycode, record);
+    _process_record_user(keycode, record);
 
     // If `false` was returned, then we did something special and should register that manually.
     // Otherwise register it here by default.
@@ -247,7 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     //process_oneshot_post(keycode, record);
 
-    return res;
+    return true;
 }
 
 uint16_t alt_with_tab() {
@@ -382,14 +410,45 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+//bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+//    switch (keycode) {
+//        case HRM_A:
+//        case HRM_S:
+//        case HRM_L:
+//            return false;
+//        default:
+//            return true;
+//    }
+//}
+
+
+
+// One-shot mods
+
+
+bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
-        case HRM_A:
-        case HRM_S:
-        case HRM_L:
-            return false;
-        default:
-            return true;
+//    case LA_SYM:
+    case LA_NAV:
+        return true;
+    default:
+        return false;
     }
 }
+
+bool is_oneshot_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+//    case LA_SYM:
+    case LA_NAV:
+    case KC_LSFT:
+    case OS_SHFT:
+    case OS_CTRL:
+    case OS_ALT:
+    case OS_CMD:
+        return true;
+    default:
+        return false;
+    }
+}
+
 

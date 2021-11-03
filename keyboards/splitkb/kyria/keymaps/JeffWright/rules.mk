@@ -1,4 +1,5 @@
 OLED_DRIVER_ENABLE = yes    # OLED displays
+OLED_DRIVER = SSD1306  # Enables the use of OLED displays
 ENCODER_ENABLE = no        # One or more encoders
 AUTO_SHIFT_ENABLE = yes
 COMBO_ENABLE = yes
@@ -27,7 +28,7 @@ MAGIC_ENABLE = no
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 
-# SRC += oneshot.c
+SRC += oneshot.c
 SRC += layermodes.c
 SRC += casemodes.c
 # SRC += tap_hold.c
