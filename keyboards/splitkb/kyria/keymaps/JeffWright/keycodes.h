@@ -7,6 +7,7 @@
 enum layers {
     _BASE = 0,
     _SYM,
+    _SYMREV,
     _NUM,
     _NAV,
     _OPT,

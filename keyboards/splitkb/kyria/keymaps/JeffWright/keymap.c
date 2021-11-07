@@ -21,6 +21,7 @@
 #include "casemodes.h"
 #include "layermodes.h"
 #include "quantum.h"
+#include "tap_hold.h"
 
 #include "g/keymap_combo.h"
 
@@ -35,6 +36,9 @@
 #define ALT_TAB_TIMEOUT 1000
 
 #define LA_NAV MO(_NAV)
+#define LA_SYM MO(_SYMREV)
+#define LA_NUM MO(_NUM)
+#define LA_FUN MO(_FUN)
 
 bool is_alt_tab_active = false;
 bool is_alt_tab_held = false;
@@ -51,9 +55,9 @@ oneshot_state os_cmd_state = os_up_unqueued;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
       KC_LEAD,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       xxxxxxx,
-      KC_ESC,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,    KC_QUOTE,
+      KC_ESC,   KC_A,   KC_S,    KC_D,    HRM_F,   KC_G,                                          KC_H,    HRM_J,   KC_K,    KC_L,    KC_SCLN,    KC_QUOTE,
       KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,       KC_A,    KC_B,        KC_C,     KC_D, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
-                                 xxxxxxx, ALTTAB, CMD_OR_CTRL, MO(_SYM),  LA_NAV,  MO(_NUM), KC_SPC,   DEL_FNKEYS,  KC_HYPR, KC_F2
+                                 xxxxxxx, ALTTAB, CMD_OR_CTRL, LA_SYM,  LA_NAV,      LA_NUM,   KC_SPC,   DEL_FNKEYS,  KC_HYPR, KC_F2
     ),
     [_SYM] = LAYOUT(
       xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
@@ -61,6 +65,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
                                  _______, xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, KC_SPC, _______, xxxxxxx, _______
     ),
+
+    [_SYMREV] = LAYOUT(
+      xxxxxxx, KC_GRAVE, KC_MINUS, KC_LCBR, KC_RCBR, KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
+      KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK,   KC_DOLLAR,
+      _______, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
+                                 _______, xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, KC_SPC, _______, xxxxxxx, _______
+    ),
+
     [_NAV] = LAYOUT(
       xxxxxxx,         DYN_MACRO_PLAY1, LGUI(KC_LBRC),xxxxxxx,LGUI(KC_RBRC), xxxxxxx,                           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, 
       KC_ESC,          HRM_PNK,         HRM_RNG, HRM_MID, HRM_IDX, xxxxxxx,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
@@ -69,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_CLN, xxxxxxx, 
+      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
       xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx,  _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
@@ -150,6 +162,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // Case modes
 
 bool terminate_case_modes(uint16_t keycode, const keyrecord_t *record) {
+
     switch (keycode) {
         // Keycodes to ignore (don't disable caps word)
         
@@ -193,6 +206,9 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_case_modes(keycode, record)) {
         return false;
     }
+    //if(!process_tap_hold(keycode, record)) {
+        //return false;
+    //}
 
     switch (keycode) {
 	    case CMD_OR_CTRL:
@@ -264,7 +280,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         keycode, record
     );
 
-    _process_record_user(keycode, record);
+    return _process_record_user(keycode, record);
 
     // If `false` was returned, then we did something special and should register that manually.
     // Otherwise register it here by default.
@@ -275,7 +291,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     //process_oneshot_post(keycode, record);
 
-    return true;
+//    return true;
 }
 
 uint16_t alt_with_tab() {
@@ -303,6 +319,8 @@ void release_alt_tab() {
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
+    tap_hold_matrix_scan();
+
     if (is_alt_tab_active) {
         if (!is_alt_tab_held && timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
             unregister_code(alt_with_tab());
@@ -428,8 +446,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
-//    case LA_SYM:
+    case LA_SYM:
     case LA_NAV:
+    case LA_NUM:
         return true;
     default:
         return false;
@@ -438,8 +457,9 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 
 bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
-//    case LA_SYM:
+    case LA_SYM:
     case LA_NAV:
+    case LA_NUM:
     case KC_LSFT:
     case OS_SHFT:
     case OS_CTRL:
@@ -451,4 +471,15 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     }
 }
 
+
+bool tap_hold(uint16_t keycode) {
+    switch (keycode) {
+//    case LA_SYM:
+    case KC_A ... KC_Z:
+    case KC_SPC:
+        return true;
+    default:
+        return false;
+    }
+}
 

@@ -1,7 +1,7 @@
 OLED_DRIVER_ENABLE = yes    # OLED displays
 OLED_DRIVER = SSD1306  # Enables the use of OLED displays
 ENCODER_ENABLE = no        # One or more encoders
-AUTO_SHIFT_ENABLE = yes
+AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = yes
 
 
@@ -31,7 +31,7 @@ GRAVE_ESC_ENABLE = no
 SRC += oneshot.c
 SRC += layermodes.c
 SRC += casemodes.c
-# SRC += tap_hold.c
+SRC += tap_hold.c
 # SRC += repeat.c
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
