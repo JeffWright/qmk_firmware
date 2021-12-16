@@ -59,6 +59,8 @@ enum custom_keycodes {
     OS_CTRL,
     OS_ALT,
     OS_CMD,
+    OS_HYPR,
+    OS_CMD_CTRL,
 };
 
 #define xxxxxxx KC_NO

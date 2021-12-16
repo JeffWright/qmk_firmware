@@ -51,13 +51,15 @@ oneshot_state os_shft_state = os_up_unqueued;
 oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
+oneshot_state os_hypr_state = os_up_unqueued;
+oneshot_state os_cmd_ctrl_state = os_up_unqueued;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
       KC_LEAD,  KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                                          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       xxxxxxx,
       KC_ESC,   KC_A,   KC_S,    KC_D,    HRM_F,   KC_G,                                          KC_H,    HRM_J,   KC_K,    KC_L,    KC_SCLN,    KC_QUOTE,
       KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,       KC_A,    KC_B,        KC_C,     KC_D, KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
-                                 xxxxxxx, ALTTAB, CMD_OR_CTRL, LA_SYM,  LA_NAV,      LA_NUM,   KC_SPC,   DEL_FNKEYS,  KC_HYPR, KC_F2
+                                 xxxxxxx, ALTTAB, LA_NAV, LA_SYM,  xxxxxxx,      xxxxxxx,   KC_SPC,   LA_NUM,  DEL_FNKEYS, xxxxxxx
     ),
     [_SYM] = LAYOUT(
       xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
@@ -66,23 +68,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, KC_SPC, _______, xxxxxxx, _______
     ),
 
-    [_SYMREV] = LAYOUT(
-      xxxxxxx, KC_GRAVE, KC_MINUS, KC_LCBR, KC_RCBR, KC_CIRC,                                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
-      KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK,   KC_DOLLAR,
-      _______, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
-                                 _______, xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, KC_SPC, _______, xxxxxxx, _______
-    ),
-
     [_NAV] = LAYOUT(
-      xxxxxxx,         DYN_MACRO_PLAY1, LGUI(KC_LBRC),xxxxxxx,LGUI(KC_RBRC), xxxxxxx,                           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, 
-      KC_ESC,          HRM_PNK,         HRM_RNG, HRM_MID, HRM_IDX, xxxxxxx,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
-      xxxxxxx,         xxxxxxx,         xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
+      xxxxxxx,         DYN_MACRO_PLAY1, LGUI(KC_LBRC),xxxxxxx,LGUI(KC_RBRC), xxxxxxx,                           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, TG_NIX, 
+      KC_ESC,          HRM_PNK,         HRM_RNG, HRM_MID, HRM_IDX, OS_HYPR,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx, 
+      xxxxxxx,         xxxxxxx,         xxxxxxx, xxxxxxx, OS_CMD_CTRL,xxxxxxx, xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
                                         _______, xxxxxxx, _______, _______, xxxxxxx, xxxxxxx, _______, _______, xxxxxxx, _______
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR, 
-      xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
+      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    OS_HYPR, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR, 
+      xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, OS_CMD_CTRL,_______,_______,_______, xxxxxxx,
                                  _______, xxxxxxx,  _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
     [_OPT] = LAYOUT(
@@ -279,6 +274,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_cmd_state, KC_LCMD, OS_CMD,
         keycode, record
     );
+    update_oneshot(
+        &os_hypr_state, KC_HYPR, OS_CMD,
+        keycode, record
+    );
+
+    if(linux_mode) {
+        update_oneshot(
+            &os_cmd_ctrl_state, KC_LCTL, OS_CMD_CTRL,
+            keycode, record
+        );
+    } else {
+        update_oneshot(
+            &os_cmd_ctrl_state, KC_LCMD, OS_CMD_CTRL,
+            keycode, record
+        );
+    }
 
     return _process_record_user(keycode, record);
 
@@ -467,6 +478,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case OS_CTRL:
     case OS_ALT:
     case OS_CMD:
+    case OS_HYPR:
         return true;
     default:
         return false;
