@@ -36,7 +36,7 @@
 #define ALT_TAB_TIMEOUT 1000
 
 #define LA_NAV MO(_NAV)
-#define LA_SYM MO(_SYMREV)
+#define LA_SYM MO(_SYM)
 #define LA_NUM MO(_NUM)
 #define LA_FUN MO(_FUN)
 
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NUM] = LAYOUT(
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx, 
+      KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    xxxxxxx, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR, 
       xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______, xxxxxxx,
                                  _______, xxxxxxx,  _______, KC_0,    KC_MINUS,_______, _______, _______, xxxxxxx, _______
     ),
@@ -352,7 +352,7 @@ void matrix_scan_user(void) {
             SEND_STRING("// TODO JTW: ");
         }
         SEQ_ONE_KEY(KC_A) {
-            SEND_STRING(" -> ");
+            SEND_STRING("-> ");
         }
         SEQ_TWO_KEYS(KC_S, KC_B) {
             SEND_STRING("shouldBeEqualTo ");
@@ -360,11 +360,13 @@ void matrix_scan_user(void) {
         }
         SEQ_TWO_KEYS(KC_A, KC_A) {
             SEND_STRING("nmc12345");
-            //SEND_STRING(KC_ENT);
+            SEND_STRING(SS_TAP(X_ENTER));
+
+            // SEND_STRING(KC_ENTER);
         }
         SEQ_TWO_KEYS(KC_A, KC_B) {
             SEND_STRING("child1");
-            //SEND_STRING(KC_ENT);
+            SEND_STRING(SS_TAP(X_ENTER));
         }
         //SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
             //SEND_STRING("https://start.duckduckgo.com\n");

@@ -33,6 +33,9 @@ void render_layers(void) {
         case _OPT:
             oled_write_P(PSTR("Opts\n"), false);
             break;
+        case _FNKEYS:
+            oled_write_P(PSTR("FnKeys\n"), false);
+            break;
         default:
             oled_write_P(PSTR("???\n"), false);
     }
