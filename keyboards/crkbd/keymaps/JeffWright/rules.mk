@@ -3,6 +3,7 @@ OLED_DRIVER = SSD1306  # Enables the use of OLED displays
 ENCODER_ENABLE = no        # One or more encoders
 AUTO_SHIFT_ENABLE = no
 COMBO_ENABLE = yes
+OLED_ENABLE = yes    # OLED displays
 
 
 # Easy definition of combos
@@ -39,5 +40,5 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
 endif
 
 ####ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
-####	SRC += oled_utils.c
+	SRC += oled_utils.c
 ####endif
