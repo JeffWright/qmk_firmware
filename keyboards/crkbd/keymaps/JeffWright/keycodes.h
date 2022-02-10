@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include QMK_KEYBOARD_H
 
 //#include "keymap_swedish.h"
@@ -46,6 +46,8 @@ enum custom_keycodes {
 
     CMD_OR_CTRL = SAFE_RANGE,
     ALTTAB,
+    NAV_BACK,
+    NAV_FWD,
 
     CAPSWORD,
     XCASE,
@@ -64,4 +66,3 @@ enum custom_keycodes {
 };
 
 #define xxxxxxx KC_NO
-
