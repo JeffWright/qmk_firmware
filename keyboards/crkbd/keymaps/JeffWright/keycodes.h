@@ -1,9 +1,6 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-//#include "keymap_swedish.h"
-//#include "quantum.h"
-
 enum layers {
     _BASE = 0,
     _SYM,
@@ -13,6 +10,11 @@ enum layers {
     _OPT,
     _FNKEYS
 };
+
+#define LA_NAV MO(_NAV)
+#define LA_SYM MO(_SYM)
+#define LA_NUM MO(_NUM)
+#define LA_FUN MO(_FUN)
 
 #define BSP_SYM LT(_SYM, KC_BSPACE)
 #define TAB_NAV LT(_NAV, KC_TAB)
