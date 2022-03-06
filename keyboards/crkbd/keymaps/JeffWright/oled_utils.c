@@ -1,19 +1,8 @@
 #include "status.h"
 #include "keycodes.h"
 #include "casemodes.h"
-#include "layermodes.h"
+//#include "layermodes.h"
 #include <stdio.h>
-
-/* void render_keymap_version(void) { */
-/*     oled_write_P(PSTR(KEYMAP_VERSION), false); */
-/*     oled_write_ln("", false); */
-/* } */
-
-/* void render_wpm(void) { */
-/*     static char wpm_str[10]; */
-/*     sprintf(wpm_str, "WPM: %03d", get_current_wpm()); */
-/*     oled_write_ln(wpm_str, false); */
-/* } */
 
 void render_layers(void) {
     //oled_write_P(PSTR("Layer: "), false);
@@ -69,19 +58,10 @@ void render_mods(void) {
 
 void render_nix(void) {
     oled_write_P(in_linux() ? PSTR("Linux") : PSTR("Mac"), false);
-    /* if (sym_word_enabled()) { */
-    /*     oled_write_P(PSTR(" SymWord"), false); */
-    /* } */
-    if (num_word_enabled()) {
-        oled_write_P(PSTR(" NumWord"), false);
-    }
     oled_write_ln("", false);
 }
 
 void render_caps(void) {
-    //if (is_caps_swapped()) {
-        //oled_write_P(PSTR("(C/E swp)"), false);
-    //}
     bool caps_word = caps_word_enabled();
     //bool xcase = xcase_enabled();
     bool xcase = get_xcase_state() !=XCASE_OFF;
@@ -109,9 +89,6 @@ void render_master_status(void) {
 }
 
 void render_slave_status(void) {
-    /* render_keymap_version(); */
-    /* oled_write_ln("", false); */
-    /* render_wpm(); */
 }
 
 void render_status(void) {

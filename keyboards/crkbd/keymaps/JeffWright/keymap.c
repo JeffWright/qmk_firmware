@@ -19,9 +19,7 @@
 #include "status.h"
 #include "oneshot.h"
 #include "casemodes.h"
-#include "layermodes.h"
 #include "quantum.h"
-#include "tap_hold.h"
 
 #include "g/keymap_combo.h"
 
@@ -196,9 +194,6 @@ bool use_default_xcase_separator(uint16_t keycode, const keyrecord_t *record) {
 
 
 bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_num_word(keycode, record)) {
-        return false;
-    }
     if (!process_case_modes(keycode, record)) {
         return false;
     }
@@ -384,7 +379,6 @@ void release_alt_tab() {
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
-    tap_hold_matrix_scan();
 
     if (is_alt_tab_active) {
         if (!is_alt_tab_held && timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
