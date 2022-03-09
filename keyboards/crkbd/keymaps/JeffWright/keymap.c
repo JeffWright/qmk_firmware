@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT(
       xxxxxxx,         DYN_MACRO_PLAY1, NAV_BACK,      xxxxxxx, NAV_FWD,       xxxxxxx,                           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, TG_NIX,
-      KC_ESC,          HRM_PNK,         HRM_RNG,       HRM_MID, HRM_IDX,       OS_HYPR,                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx,
+      KC_ESC,          HRM_PNK,         HRM_RNG,       HRM_MID, HRM_IDX,       OS_HYPR,                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, RESET,
       xxxxxxx,         xxxxxxx,         xxxxxxx,       xxxxxxx, OS_CMD_CTRL,   xxxxxxx,                           KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
                                                        xxxxxxx, _______, _______,                   _______, _______, xxxxxxx
     ),

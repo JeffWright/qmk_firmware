@@ -31,11 +31,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_reviung41(
       ALTTAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       KC_BSPACE,
       KC_ESC,   KC_A,   KC_S,    KC_D,    HRM_F,   KC_G,                KC_H,    HRM_J,   KC_K,    KC_L,    KC_SCLN,    KC_QUOTE,
-      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   xxxxxxx,
-                                          LA_NAV,  LA_SYM,    KC_SPC,   LA_NUM,  DEL_FNKEYS
+      KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   DEL_FNKEYS,
+                                          CMD_OR_CTRL,  LA_SYM,    KC_SPC,   LA_NUM,  LA_NAV
     ),
     [_SYM] = LAYOUT_reviung41(
-      xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   xxxxxxx,
+      xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   _______,
       KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                    xxxxxxx,   HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK,   KC_DOLLAR,
       _______, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,                    xxxxxxx,   xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
                                                xxxxxxx, xxxxxxx,   _______, xxxxxxx,  xxxxxxx
@@ -43,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_reviung41(
       xxxxxxx,         DYN_MACRO_PLAY1, NAV_BACK,      xxxxxxx, NAV_FWD,       xxxxxxx,                           xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, TG_NIX,
-      KC_ESC,          HRM_PNK,         HRM_RNG,       HRM_MID, HRM_IDX,       OS_HYPR,                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, xxxxxxx,
+      KC_ESC,          HRM_PNK,         HRM_RNG,       HRM_MID, HRM_IDX,       OS_HYPR,                           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, xxxxxxx, RESET,
       xxxxxxx,         xxxxxxx,         xxxxxxx,       xxxxxxx, OS_CMD_CTRL,   xxxxxxx,                           KC_HOME, KC_PGDN, KC_PGUP, KC_END,  xxxxxxx, xxxxxxx,
                                                                           xxxxxxx, xxxxxxx,   _______, xxxxxxx,  xxxxxxx
     ),
 
     [_NUM] = LAYOUT_reviung41(
-      xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
+      xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    OS_HYPR, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR,
       xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx,                                     xxxxxxx, OS_CMD_CTRL,_______,_______,_______, xxxxxxx,
                                                       xxxxxxx, KC_0,      _______, xxxxxxx, xxxxxxx
