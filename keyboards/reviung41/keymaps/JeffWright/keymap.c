@@ -30,15 +30,15 @@ oneshot_state os_cmd_ctrl_state = os_up_unqueued;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_reviung41(
       ALTTAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,       KC_BSPACE,
-      KC_ESC,   KC_A,   KC_S,    KC_D,    HRM_F,   KC_G,                KC_H,    HRM_J,   KC_K,    KC_L,    KC_SCLN,    KC_QUOTE,
+      KC_ESC,   HRM_A,  HRM_S,   HRM_D,   HRM_F,   KC_G,                KC_H,    HRM_J,   HRM_K,   HRM_L,   HRM_SCLN,   KC_QUOTE,
       KC_LSHIFT,KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,                KC_N,    KC_M,    KC_COMMA,KC_DOT,  KC_SLASH,   DEL_FNKEYS,
                                           CMD_OR_CTRL,  LA_SYM,    KC_SPC,   LA_NUM,  LA_NAV
     ),
     [_SYM] = LAYOUT_reviung41(
-      xxxxxxx, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,   _______,
-      KC_CIRC, KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                    xxxxxxx,   HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK,   KC_DOLLAR,
-      _______, KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,                    xxxxxxx,   xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
-                                               xxxxxxx, xxxxxxx,   _______, xxxxxxx,  xxxxxxx
+      ALTTAB_APP, KC_GRAVE,KC_MINUS,KC_LCBR, KC_RCBR, KC_CIRC,                     KC_PERCENT,xxxxxxx,xxxxxxx,xxxxxxx, KC_HASH,     _______,
+      KC_CIRC,    KC_AT,   KC_PLUS, KC_LPRN, KC_RPRN, KC_EQUAL,                    xxxxxxx,   HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK,   KC_DOLLAR,
+      _______,    KC_AMPR, KC_ASTR, KC_TILDE,KC_DOLLAR,KC_PIPE,                    xxxxxxx,   xxxxxxx, _______, _______, KC_BSLASH, xxxxxxx,
+                                               _______, xxxxxxx,   _______, xxxxxxx,  xxxxxxx
     ),
 
     [_NAV] = LAYOUT_reviung41(
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, KC_HASH, KC_7,    KC_8,    KC_9,    KC_PERCENT,                                  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
       KC_ESC,  xxxxxxx, KC_4,    KC_5,    KC_6,    KC_EQUAL,                                    OS_HYPR, HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, KC_DOLLAR,
       xxxxxxx, xxxxxxx, KC_1,    KC_2,    KC_3,    xxxxxxx,                                     xxxxxxx, OS_CMD_CTRL,_______,_______,_______, xxxxxxx,
-                                                      xxxxxxx, KC_0,      _______, xxxxxxx, xxxxxxx
+                                                      _______, KC_0,      _______, xxxxxxx, xxxxxxx
     ),
     [_OPT] = LAYOUT_reviung41(
       xxxxxxx, xxxxxxx, xxxxxxx, _______, _______, _______,                                     _______, TG_NIX,  _______, _______, _______, RESET,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxx, xxxxxxx, KC_F7,   KC_F8,   KC_F9,    KC_F10,                                      KC_F13,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, RESET,
       xxxxxxx, xxxxxxx, KC_F4,   KC_F5,   KC_F6,    KC_F11,                                      KC_F14,  HRM_IDX, HRM_MID, HRM_RNG, HRM_PNK, xxxxxxx,
       xxxxxxx, xxxxxxx, KC_F1,   KC_F2,   KC_F3,    KC_F12,                                      KC_F15,  xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-                                                 xxxxxxx, xxxxxxx,   _______, xxxxxxx,  xxxxxxx
+                                                 _______, xxxxxxx,   _______, xxxxxxx,  xxxxxxx
     )
 };
 

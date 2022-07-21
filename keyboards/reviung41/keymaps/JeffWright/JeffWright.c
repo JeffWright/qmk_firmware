@@ -37,22 +37,21 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
 
 #ifdef TAPPING_TERM_PER_KEY
 
-#define MIDDLE_TERM_EXTRA 0
-#define RING_TERM_EXTRA 50
-#define PINKY_TERM_EXTRA 150
+// Very slow tapping term for A/S/D and K/L/; because we never want them to trigger while typing
+//#define SECONDARY_HRM_TERM_EXTRA 300
+
+uint16_t secondary_term_extra = 300;
 
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case HRM_A:
         case HRM_SCLN:
-            return TAPPING_TERM + PINKY_TERM_EXTRA;
         case HRM_S:
         case HRM_L:
-            return TAPPING_TERM + RING_TERM_EXTRA;
         case HRM_D:
         case HRM_K:
-            return TAPPING_TERM + MIDDLE_TERM_EXTRA;
+            return TAPPING_TERM + secondary_term_extra;
         default:
             return TAPPING_TERM;
     }
@@ -154,6 +153,25 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
                 release_alt_tab();
                 return false;
             }
+        case ALTTAB_APP:
+          if(in_linux()) {
+            if(record->event.pressed) {
+              register_code(KC_LCTRL);
+              register_code(KC_TAB);
+            } else {
+              unregister_code(KC_TAB);
+              unregister_code(KC_LCTRL);
+            }
+          } else {
+            if(record->event.pressed) {
+              register_code(KC_LGUI);
+              register_code(KC_GRAVE);
+            } else {
+              unregister_code(KC_GRAVE);
+              unregister_code(KC_LGUI);
+            }
+          }
+          return false;
         case NAV_BACK:
           if(in_linux()) {
             if(record->event.pressed) {
@@ -310,28 +328,35 @@ void matrix_scan_user(void) {
             SEND_STRING(">");
         }
 
-        SEQ_ONE_KEY(KC_M) {
-            SEND_STRING("MET3-");
-        }
+        // SEQ_ONE_KEY(KC_M) {
+            // SEND_STRING("MET3-");
+        // }
         SEQ_ONE_KEY(KC_J) {
             SEND_STRING("// TODO JTW: ");
         }
         SEQ_ONE_KEY(KC_A) {
             SEND_STRING("-> ");
         }
-        SEQ_TWO_KEYS(KC_S, KC_B) {
-            SEND_STRING("shouldBeEqualTo ");
+        // SEQ_TWO_KEYS(KC_S, KC_B) {
+            // SEND_STRING("shouldBeEqualTo ");
             //SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-        }
-        SEQ_TWO_KEYS(KC_A, KC_A) {
-            SEND_STRING("nmc12345");
-            SEND_STRING(SS_TAP(X_ENTER));
+        // }
+        // SEQ_TWO_KEYS(KC_A, KC_A) {
+            // SEND_STRING("nmc12345");
+            // SEND_STRING(SS_TAP(X_ENTER));
 
-            // SEND_STRING(KC_ENTER);
-        }
-        SEQ_TWO_KEYS(KC_A, KC_B) {
-            SEND_STRING("child1");
-            SEND_STRING(SS_TAP(X_ENTER));
+            // // SEND_STRING(KC_ENTER);
+        // }
+        // SEQ_TWO_KEYS(KC_A, KC_B) {
+            // SEND_STRING("child1");
+            // SEND_STRING(SS_TAP(X_ENTER));
+        //}
+
+        SEQ_TWO_KEYS(KC_T, KC_T) {
+
+	    secondary_term_extra -= 10;
+            SEND_STRING("tt=");
+
         }
         //SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
             //SEND_STRING("https://start.duckduckgo.com\n");

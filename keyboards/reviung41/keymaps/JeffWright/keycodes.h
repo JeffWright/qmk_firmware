@@ -48,6 +48,7 @@ enum custom_keycodes {
 
     CMD_OR_CTRL = SAFE_RANGE,
     ALTTAB,
+    ALTTAB_APP,
     NAV_BACK,
     NAV_FWD,
 

@@ -19,19 +19,13 @@ COMB(lt_comb,                KC_LT,                   KC_PLUS, KC_LPRN)
 COMB(rt_comb,                KC_GT,                   KC_PLUS, KC_RPRN)
 
 COMB(capsword_comb,          CAPSWORD,                 HRM_F, HRM_J)
-COMB(xcase_comb,             XCASE,                    HRM_F, KC_K)
-
-
-COMB(opt_comb,             OSL(_OPT),                    KC_HYPR, KC_F2)
+COMB(xcase_comb,             XCASE,                    HRM_F, HRM_K)
 
 
 COMB(ent_comb,             KC_ENTER,                    HRM_J, KC_K)
-COMB(esc_comb,             KC_ESC,                    KC_D, HRM_F)
-
-// COMB(tab_comb,             KC_TAB,                      KC_Q, KC_W)
-// COMB(bsp_comb,             KC_BSPACE,                   KC_O, KC_P)
+COMB(ent_comb2,            KC_ENTER,                    HRM_J, HRM_K)
 
 COMB(tab_comb,             KC_TAB,                      KC_L, KC_SCLN)
-COMB(bsp_comb,             KC_BSPACE,                   KC_Q, KC_W)
+COMB(tab_comb2,            KC_TAB,                      HRM_L, HRM_SCLN)
 
 COMB(lead_comb,             KC_LEAD,                      KC_C, KC_V)
