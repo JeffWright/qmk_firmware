@@ -523,13 +523,14 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_status();
 //    if (is_keyboard_master()) {
 //        render_master_status();
 //    } else {
 //        oled_render_logo();
 //    }
+    return true;
 }
 
 #endif // OLED_ENABLE
