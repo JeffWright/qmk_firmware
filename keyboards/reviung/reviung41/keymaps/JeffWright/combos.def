@@ -28,4 +28,4 @@ COMB(ent_comb2,            KC_ENTER,                    HRM_J, HRM_K)
 COMB(tab_comb,             KC_TAB,                      KC_L, KC_SCLN)
 COMB(tab_comb2,            KC_TAB,                      HRM_L, HRM_SCLN)
 
-COMB(lead_comb,             KC_LEAD,                      KC_C, KC_V)
+COMB(lead_comb,             QK_LEAD,                      KC_C, KC_V)

@@ -109,11 +109,11 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 	    case CMD_OR_CTRL:
 		    if(in_linux()) {
-			    // pretend it was KC_LCTRL
+			    // pretend it was KC_LCTL
                 if(record->event.pressed) {
-                    register_code(KC_LCTRL);
+                    register_code(KC_LCTL);
                 } else {
-                    unregister_code(KC_LCTRL);
+                    unregister_code(KC_LCTL);
                 }
 		    } else {
 			    // pretend it was KC_LGUI
@@ -156,11 +156,11 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
         case ALTTAB_APP:
           if(in_linux()) {
             if(record->event.pressed) {
-              register_code(KC_LCTRL);
+              register_code(KC_LCTL);
               register_code(KC_TAB);
             } else {
               unregister_code(KC_TAB);
-              unregister_code(KC_LCTRL);
+              unregister_code(KC_LCTL);
             }
           } else {
             if(record->event.pressed) {
@@ -217,49 +217,49 @@ bool _process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_oneshot(
-        &os_shft_state, KC_LSFT, OS_SHFT,
+        &os_shft_state, KC_LSFT, COS_SHFT,
         keycode, record
     );
     update_oneshot(
-        &os_ctrl_state, KC_LCTL, OS_CTRL,
+        &os_ctrl_state, KC_LCTL, COS_CTRL,
         keycode, record
     );
     update_oneshot(
-        &os_alt_state, KC_LALT, OS_ALT,
+        &os_alt_state, KC_LALT, COS_ALT,
         keycode, record
     );
     update_oneshot(
-        &os_cmd_state, KC_LCMD, OS_CMD,
+        &os_cmd_state, KC_LCMD, COS_CMD,
         keycode, record
     );
 
 ////////////////////////////////////////////////
    update_oneshot(
-        &os_shft_state, KC_LSFT, OS_HYPR,
+        &os_shft_state, KC_LSFT, COS_HYPR,
         keycode, record
     );
     update_oneshot(
-        &os_ctrl_state, KC_LCTL, OS_HYPR,
+        &os_ctrl_state, KC_LCTL, COS_HYPR,
         keycode, record
     );
     update_oneshot(
-        &os_alt_state, KC_LALT, OS_HYPR,
+        &os_alt_state, KC_LALT, COS_HYPR,
         keycode, record
     );
     update_oneshot(
-        &os_cmd_state, KC_LCMD, OS_HYPR,
+        &os_cmd_state, KC_LCMD, COS_HYPR,
         keycode, record
     );
 ////////////////////////////////////////////////
 
     if(linux_mode) {
         update_oneshot(
-            &os_cmd_ctrl_state, KC_LCTL, OS_CMD_CTRL,
+            &os_cmd_ctrl_state, KC_LCTL, COS_CMD_CTRL,
             keycode, record
         );
     } else {
         update_oneshot(
-            &os_cmd_ctrl_state, KC_LCMD, OS_CMD_CTRL,
+            &os_cmd_ctrl_state, KC_LCMD, COS_CMD_CTRL,
             keycode, record
         );
     }
@@ -300,75 +300,32 @@ void release_alt_tab() {
 }
 
 
-LEADER_EXTERNS();
-
 void matrix_scan_user(void) {
-
     if (is_alt_tab_active) {
         if (!is_alt_tab_held && timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
             unregister_code(alt_with_tab());
             is_alt_tab_active = false;
         }
     }
+}
 
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_E) {
-            SEND_STRING("[");
-        }
-        SEQ_ONE_KEY(KC_R) {
-            SEND_STRING("]");
-        }
-        SEQ_ONE_KEY(KC_D) {
-            SEND_STRING("<");
-        }
-        SEQ_ONE_KEY(KC_F) {
-            SEND_STRING(">");
-        }
-
-        // SEQ_ONE_KEY(KC_M) {
-            // SEND_STRING("MET3-");
-        // }
-        SEQ_ONE_KEY(KC_J) {
-            SEND_STRING("// TODO JTW: ");
-        }
-        SEQ_ONE_KEY(KC_A) {
-            SEND_STRING("-> ");
-        }
-        // SEQ_TWO_KEYS(KC_S, KC_B) {
-            // SEND_STRING("shouldBeEqualTo ");
-            //SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-        // }
-        // SEQ_TWO_KEYS(KC_A, KC_A) {
-            // SEND_STRING("nmc12345");
-            // SEND_STRING(SS_TAP(X_ENTER));
-
-            // // SEND_STRING(KC_ENTER);
-        // }
-        // SEQ_TWO_KEYS(KC_A, KC_B) {
-            // SEND_STRING("child1");
-            // SEND_STRING(SS_TAP(X_ENTER));
-        //}
-
-        SEQ_TWO_KEYS(KC_T, KC_T) {
-
-	    secondary_term_extra -= 10;
-            SEND_STRING("tt=");
-
-        }
-        //SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
-            //SEND_STRING("https://start.duckduckgo.com\n");
-        //}
-        //SEQ_TWO_KEYS(KC_A, KC_S) {
-            //register_code(KC_LGUI);
-            //register_code(KC_S);
-            //unregister_code(KC_S);
-            //unregister_code(KC_LGUI);
-        //}
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_E)) {
+        SEND_STRING("[");
+    } else if (leader_sequence_one_key(KC_R)) {
+        SEND_STRING("]");
+    } else if (leader_sequence_one_key(KC_D)) {
+        SEND_STRING("<");
+    } else if (leader_sequence_one_key(KC_F)) {
+        SEND_STRING(">");
+    } else if (leader_sequence_one_key(KC_J)) {
+        SEND_STRING("// TODO JTW: ");
+    } else if (leader_sequence_one_key(KC_A)) {
+        SEND_STRING("-> ");
+    } else if (leader_sequence_two_keys(KC_T, KC_T)) {
+        secondary_term_extra -= 10;
+        SEND_STRING("tt=");
     }
-
 }
 
 #ifdef OLED_DRIVER_ENABLE
@@ -453,12 +410,12 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case LA_NAV:
     case LA_NUM:
     case KC_LSFT:
-    case OS_SHFT:
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_CMD:
-    case OS_HYPR:
-    case OS_CMD_CTRL:
+    case COS_SHFT:
+    case COS_CTRL:
+    case COS_ALT:
+    case COS_CMD:
+    case COS_HYPR:
+    case COS_CMD_CTRL:
         return true;
     default:
         return false;
@@ -523,13 +480,14 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     render_status();
 //    if (is_keyboard_master()) {
 //        render_master_status();
 //    } else {
 //        oled_render_logo();
 //    }
+    return false;
 }
 
 #endif // OLED_ENABLE

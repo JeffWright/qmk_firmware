@@ -26,8 +26,6 @@
 #endif
 
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT 
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 // (hold F tap/release E -> Shift-E)
 #define PERMISSIVE_HOLD

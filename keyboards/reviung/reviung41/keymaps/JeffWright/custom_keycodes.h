@@ -22,22 +22,22 @@ enum layers {
 #define DEL_FNKEYS LT(_FNKEYS, KC_DELETE)
 
 //#define HRM_PNK  KC_LGUI
-#define HRM_PNK  OS_CMD
+#define HRM_PNK  COS_CMD
 #define HRM_A    LGUI_T(KC_A)
 #define HRM_SCLN RGUI_T(KC_SCLN)
 
 //#define HRM_RNGPNK  KC_LGUI
-#define HRM_RNG  OS_ALT
+#define HRM_RNG  COS_ALT
 #define HRM_S    LALT_T(KC_S)
 #define HRM_L    RALT_T(KC_L)
 
 //#define HRM_MID  KC_LCTL
-#define HRM_MID  OS_CTRL
+#define HRM_MID  COS_CTRL
 #define HRM_D    LCTL_T(KC_D)
 #define HRM_K    RCTL_T(KC_K)
 
 //#define HRM_IDX  KC_LSHIFT
-#define HRM_IDX  OS_SHFT
+#define HRM_IDX  COS_SHFT
 #define HRM_F LSFT_T(KC_F)
 #define HRM_J RSFT_T(KC_J)
 
@@ -60,12 +60,12 @@ enum custom_keycodes {
     TG_CAPS,
 
     // Oneshot Mods
-    OS_SHFT,
-    OS_CTRL,
-    OS_ALT,
-    OS_CMD,
-    OS_HYPR,
-    OS_CMD_CTRL,
+    COS_SHFT,
+    COS_CTRL,
+    COS_ALT,
+    COS_CMD,
+    COS_HYPR,
+    COS_CMD_CTRL,
 };
 
 #define xxxxxxx KC_NO

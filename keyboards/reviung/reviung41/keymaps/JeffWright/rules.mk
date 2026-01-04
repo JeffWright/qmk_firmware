@@ -15,6 +15,7 @@ EXTRAKEY_ENABLE = no        # For volume keys and similar
 MOUSEKEY_ENABLE = no        # Them mouse keys yo
 KEY_OVERRIDE_ENABLE = no
 LEADER_ENABLE = yes
+DYNAMIC_MACRO_ENABLE = yes
 TAP_DANCE_ENABLE = no
 RGBLIGHT_ENABLE = no        # Keyboard RGB underglow
 RGB_MATRIX_ENABLE = no      # Disable RGB, not used on Kyria
