@@ -1,7 +1,7 @@
 
 // Keyboard utils
 
-static bool linux_mode = true;
+static bool linux_mode = false;
 bool in_linux(void) {
     return linux_mode;
 }
